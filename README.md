@@ -1,8 +1,8 @@
-# Sentry JS-React Demo
+# Sentry-Demos-React
 
-[![Travis Status](https://travis-ci.org/ndmanvar/sentry-react-demo.svg?branch=master)](https://travis-ci.org/ndmanvar/sentry-react-demo)
+[![Travis Status](https://travis-ci.org/sentry-demos/react.svg?branch=master)](https://travis-ci.org/sentry-demos/react)
 
-Hosted at [https://sentry-react-demo.herokuapp.com/](https://sentry-react-demo.herokuapp.com/)
+Hosted at [https://sentry-demos-react.herokuapp.com/](https://sentry-demos-react.herokuapp.com/)
 
 # Goal/Summary
 Show how Sentry works

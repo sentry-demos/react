@@ -4,7 +4,7 @@
 #  or have it set as environment variable
 
 SENTRY_ORG=testorg-az
-SENTRY_PROJECT=sentry-demos-react
+SENTRY_PROJECT=sentry-demos-react-2t
 HEROKU_APP_ID=sentry-demos-react
 
 VERSION=`sentry-cli releases propose-version`
