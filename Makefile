@@ -6,6 +6,7 @@
 SENTRY_ORG=testorg-az
 SENTRY_PROJECT=sentry-demos-react-2t
 HEROKU_APP_ID=sentry-demos-react
+HEROKU_AUTH_TOKEN?=`heroku auth:token`
 
 VERSION=`sentry-cli releases propose-version`
 
