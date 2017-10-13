@@ -13,7 +13,7 @@
     "react-scripts": "1.0.10"
   },
   "scripts": {
-    "predeploy": "REACT_APP_RELEASE=`sentry-cli releases propose-version` npm run build",
+    "predeploy": "REACT_APP_RELEASE=`sentry-cli releases propose-version` npm run build && make setup_release",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",

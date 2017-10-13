@@ -4,8 +4,6 @@
 
 Hosted on GitHub Pages at [https://sentry-demos.github.io/react/](https://sentry-demos.github.io/react/).
 
-Hosted on Heroku at [https://sentry-demos-react.herokuapp.com/](https://sentry-demos-react.herokuapp.com/).
-
 # Goal/Summary
 Show how Sentry works
 - Import/Integrate
