@@ -3,7 +3,6 @@ node_js:
 - '8'
 env:
   global:
-  - REACT_APP_RELEASE=$TRAVIS_COMMIT
   - HEROKU_APP_ID=sentry-demos-react
   - SENTRY_ORG=testorg-az
   - SENTRY_PROJECT=sentry-demos-react
@@ -18,5 +17,3 @@ deploy:
   app: sentry-demos-react
   on:
     repo: sentry-demos/react
-before_deploy:
-- make setup_release set_release_context
