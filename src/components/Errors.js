@@ -8,7 +8,7 @@ class Errors extends Component {
 
     notAFunctionError() {
         var obj = {
-            attributeInvalid: function () {}
+            attributeValid: function () {}
         };
         obj.attributeInvalid();
     }
