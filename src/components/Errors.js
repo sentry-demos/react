@@ -7,9 +7,7 @@ import logo from '../assets/sentry-glyph-black.png';
 class Errors extends Component {
 
     notAFunctionError() {
-        var obj = {
-            attributeInvalid: function () {}
-        };
+        var obj = {};
         obj.attributeInvalid();
     }
 
