@@ -7,7 +7,6 @@ import logo from '../assets/sentry-glyph-black.png';
 class Errors extends Component {
     constructor(props) {
         super(props);
-        Raven.setTagsContext({ page: "ErrorsPage" });
     }
 
     notAFunctionError() {
