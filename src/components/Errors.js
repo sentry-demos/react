@@ -1,10 +1,15 @@
-/*global undefinedVariable:false*/
+/*global undefinedVariable:false Raven:false*/
 /*eslint no-unused-vars:0 no-eval:0*/
 
 import React, { Component } from 'react';
 import logo from '../assets/sentry-glyph-black.png';
 
 class Errors extends Component {
+
+    constructor(props) {
+        super(props);
+        Raven.setTagsContext({ page: "ErrorsPage" });
+    }
 
     notAFunctionError() {
         var obj = {};
