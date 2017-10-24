@@ -43,3 +43,17 @@ li:hover {
     width: 50%;
     padding: 10px;
 }
+
+.left {
+    /* margin: auto; */
+    width: 50%;
+    padding: 10px;
+    float: left;
+}
+
+.right {
+    /* margin: auto; */
+    width: 50%;
+    padding: 10px;
+    float: right;
+}
