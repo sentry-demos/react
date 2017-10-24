@@ -17,4 +17,4 @@ associate_commits:
 
 upload_sourcemaps:
 	sentry-cli releases -o $(SENTRY_ORG) -p $(SENTRY_PROJECT) files \
-		$(VERSION) upload-sourcemaps build/static/js
+		$(VERSION) upload-sourcemaps --validate build/static/js
