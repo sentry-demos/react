@@ -118,7 +118,7 @@ class Errors extends Component {
                             <p>{'Raven.setTagsContext({sampleTag: "sampleValue"});'}</p>
                         </li>
                         <li className="list-group-item" onClick={this.setExtraContext}>
-                            <h3>Set Sample Tag</h3>
+                            <h3>Set Extra Context</h3>
                             <p>{'Raven.setExtraContext({foo: "bar"});'}</p>
                         </li>
                     </ul>
