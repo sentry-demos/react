@@ -8,7 +8,7 @@ class Errors extends Component {
     constructor(props) {
         super(props);
         this.state = {color: 'black'};
-        Raven.setTagsContext({page: "ErrorsPage"});
+        // Raven.setTagsContext({page: "ErrorsPage"});
     }
 
     // ERRORS
@@ -52,11 +52,11 @@ class Errors extends Component {
 
     // RAVEN CONFIGURATIONS:
     setSampleTag() {
-        Raven.setTagsContext({sampleTag: "sampleValue"});
+        // Raven.setTagsContext({sampleTag: "sampleValue"});
     }
 
     setExtraContext() {
-        Raven.setExtraContext({ foo: "bar" });
+        // Raven.setExtraContext({ foo: "bar" });
     }
     // RAVEN CONFIGURATIONS (end)
 
