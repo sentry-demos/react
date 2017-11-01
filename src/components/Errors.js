@@ -53,13 +53,13 @@ class Errors extends Component {
     }
 
     // RAVEN CONFIGURATIONS:
-    setSampleTag() {
-        // Raven.setTagsContext({sampleTag: "sampleValue"});
-    }
+    // setSampleTag() {
+    //     Raven.setTagsContext({sampleTag: "sampleValue"});
+    // }
 
-    setExtraContext() {
-        // Raven.setExtraContext({ foo: "bar" });
-    }
+    // setExtraContext() {
+    //     Raven.setExtraContext({ foo: "bar" });
+    // }
     // RAVEN CONFIGURATIONS (end)
 
     render() {
@@ -76,7 +76,7 @@ class Errors extends Component {
                     <br/>
                     This is where you can specify your DSN and send errors/exceptions to Sentry.</p>
                 <div>
-                    <ul className="left list-group " onClick={this.showError.bind(this, 'red')}>
+                    <ul className="center list-group " onClick={this.showError.bind(this, 'red')}>
                         <li className="list-group-item list-group-item-danger">
                             <h3>ERRORS</h3>
                         </li>
@@ -111,7 +111,7 @@ class Errors extends Component {
                         </li>
                     </ul>
 
-                    <ul className="left list-group" onClick={this.showError.bind(this, 'green')}>
+                    <ul className="left list-group hidden" onClick={this.showError.bind(this, 'green')}>
                         <li className="list-group-item list-group-item-success">
                             <h3>FEATURES</h3>
                         </li>
