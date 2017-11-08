@@ -12,7 +12,7 @@ class Login extends Component {
     }
 
     handleChange(event) {
-        this.setState({email: event.target.value});
+        this.setState({id: 123});
     }
 
     handleSubmit(event) {
