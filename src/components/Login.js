@@ -17,7 +17,7 @@ class Login extends Component {
 
     handleSubmit(event) {
         var email = this.state.email;
-        Raven.setUserContext({id: 123});
+        // Raven.setUserContext({email});
         this.props.history.pushState({email}, "/errors");
     }
 
