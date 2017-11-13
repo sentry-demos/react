@@ -1,21 +1,22 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#000000">
-    <!--
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#000000">
+  <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
 
-    <!-- Bootstrap Core CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cerulean/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Core CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cerulean/bootstrap.min.css" rel="stylesheet">
 
 
-    <!--
+  <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -24,21 +25,52 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>Sentry Demo</title>
+  <title>Sentry Demo</title>
 
-    <script src="https://cdn.ravenjs.com/3.17.0/raven.min.js" crossorigin="anonymous"></script>
-    <script>
-        Raven.config('https://2658f0abd5a74ec688413bb43b4ac77e@sentry.io/228490', {
-            release: "%REACT_APP_RELEASE%"
-        }).install();
-    </script>
-  </head>
-  <body>
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
-    <div id="root"></div>
-    <!--
+  <script src="https://cdn.ravenjs.com/3.17.0/raven.min.js" crossorigin="anonymous"></script>
+  <script>
+    Raven.config('https://2658f0abd5a74ec688413bb43b4ac77e@sentry.io/228490', {
+      release: "%REACT_APP_RELEASE%"
+    }).install();
+  </script>
+
+  <!-- Begin SessionStack code -->
+  <script type="text/javascript">
+    ! function (a, b) {
+      var c = window;
+      c.SessionStack = a, c[a] = c[a] || function () {
+        c[a].q = c[a].q || [], c[a].q.push(arguments)
+      }, c[a].t = b;
+      var d = document.createElement("script");
+      d.async = 1, d.src = "https://cdn.sessionstack.com/sessionstack.js";
+      var e = document.getElementsByTagName("script")[0];
+      e.parentNode.insertBefore(d, e);
+    }("sessionstack", "7657507674e04f929b1ba142269ea82a");
+  </script>
+  <!-- End SessionStack Code -->
+
+  <!-- Begin SessionStack-Sentry code -->
+  <script type="text/javascript">
+    sessionstack("getSessionId", function (s) {
+      s && Raven.setDataCallback(function (t) {
+        return t
+          .contexts = t.contexts || {}, t.contexts.sessionstack = {
+            session_id: s,
+            timestamp: (new Date).
+            getTime()
+          }, t
+      })
+    });
+  </script>
+  <!-- End SessionStack-Sentry code -->
+</head>
+
+<body>
+  <noscript>
+    You need to enable JavaScript to run this app.
+  </noscript>
+  <div id="root"></div>
+  <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -48,5 +80,6 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  </body>
+</body>
+
 </html>
