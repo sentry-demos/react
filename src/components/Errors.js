@@ -36,12 +36,7 @@ class Errors extends Component {
     }
 
     rangeError() {
-        try {
-            throw new RangeError('Parameter must be between 1 and 100');
-        } catch (err) {
-            Raven.captureException(err);
-            Raven.showReportDialog();
-        }
+        throw new RangeError('Parameter must be between 1 and 100');
     }
 
     evalError() {
