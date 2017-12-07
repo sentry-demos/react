@@ -7,8 +7,20 @@ import logo from '../assets/sentry-glyph-black.png';
 class Errors extends Component {
     constructor(props) {
         super(props);
-        this.state = {color: 'black'};
-        // Raven.setTagsContext({page: "ErrorsPage"});
+        this.state = {color: 'black', email: '', submitted_email: ''};
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        Raven.setTagsContext({page: "ErrorsPage"});
+    }
+
+    handleChange(event) {
+        this.setState({email: event.target.value});
+    }
+
+    handleSubmit(event) {
+        var email = this.state.email;
+        this.setState({submitted_email: email});
+        Raven.setUserContext({email});
     }
 
     // ERRORS
@@ -63,18 +75,23 @@ class Errors extends Component {
     // RAVEN CONFIGURATIONS (end)
 
     render() {
-        const user = this.props.location.state;
 
         return (
             <div style={{
                 color: this.state.color
             }}>
-                <h2>Hi, {user
-                        ? user.email
+            <div className="center">
+            <form onSubmit={(e) => { e.preventDefault();}}>
+                <div className="form-group">
+                    <input type="email" className="form-control" onChange={this.handleChange} placeholder="Enter email"/>
+                </div>
+                <button type="submit" onClick={this.handleSubmit} className="btn btn-primary">Submit</button>                
+            </form>
+            </div>
+
+                <h2>Hi, {this.state.submitted_email
+                        ? this.state.submitted_email
                         : "Guest"}.</h2>
-                <p>Welcome the list of sample errors.
-                    <br/>
-                    This is where you can specify your DSN and send errors/exceptions to Sentry.</p>
                 <div>
                     <ul className="center list-group " onClick={this.showError.bind(this, 'red')}>
                         <li className="list-group-item list-group-item-danger">
