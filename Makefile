@@ -6,6 +6,7 @@
 SENTRY_ORG=testorg-az
 SENTRY_PROJECT=sentry-demos-react-2t
 VERSION=`sentry-cli releases propose-version`
+PREFIX=static/js
 
 setup_release: create_release associate_commits upload_sourcemaps
 
@@ -17,4 +18,4 @@ associate_commits:
 
 upload_sourcemaps:
 	sentry-cli releases -o $(SENTRY_ORG) -p $(SENTRY_PROJECT) files \
-		$(VERSION) upload-sourcemaps --validate build/static/js
+		$(VERSION) upload-sourcemaps --url-prefix "~/$(PREFIX)" --validate build/$(PREFIX)
