@@ -1,7 +1,6 @@
 # Must have `sentry-cli` installed globally
-# Following env variables have to be set or passed in:
+# Following variable must be passed in
 #  SENTRY_AUTH_TOKEN
-#  or have it set as environment variable
 
 SENTRY_ORG=testorg-az
 SENTRY_PROJECT=sentry-demos-react-2t
