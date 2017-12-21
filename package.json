@@ -1,21 +1,18 @@
 {
   "name": "my-app",
   "version": "0.1.0",
-  "homepage": "https://sentry-demos.github.io/react",
   "private": true,
   "dependencies": {
-    "gh-pages": "^1.0.0",
     "history": "^1.17.0",
     "material-ui": "^0.18.7",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2",
     "react-router": "^1.0.3",
     "react-scripts": "1.0.10"
   },
   "scripts": {
     "predeploy": "REACT_APP_RELEASE=`sentry-cli releases propose-version` npm run build && make setup_release",
     "deploy": "serve -s build",
-    "publish": "gh-pages -d build",
     "start": "REACT_APP_RELEASE=`sentry-cli releases propose-version` react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
