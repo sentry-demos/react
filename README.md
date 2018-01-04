@@ -7,7 +7,7 @@ Show how Sentry works
 - Releases/SourceMaps
 
 ## Setup
-1. Configure Raven with your `PUBLIC_DSN_KEY`
+1. Configure Raven with your `PUBLIC_DSN_KEY` in index.html
 2. Setup and Deploy
 ```
 $ npm install
