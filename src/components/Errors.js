@@ -10,7 +10,6 @@ class Errors extends Component {
         this.state = {color: 'black', email: '', submitted_email: ''};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        Raven.setTagsContext({page: "CheckoutPage"});
     }
 
     handleChange(event) {
@@ -20,14 +19,11 @@ class Errors extends Component {
     handleSubmit(event) {
         var email = this.state.email;
         this.setState({submitted_email: email});
-        Raven.setUserContext({email});
     }
 
     // ERRORS
     notAFunctionError() {
-        var obj = {
-            attributeInvalid: function () {}
-        };
+        var obj = {};
         obj.attributeInvalid();
     }
 
