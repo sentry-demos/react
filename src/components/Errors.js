@@ -25,7 +25,9 @@ class Errors extends Component {
 
     // ERRORS
     notAFunctionError() {
-        var obj = {};
+        var obj = {
+            attributeInvalid: function () {}
+        };
         obj.attributeInvalid();
     }
 
