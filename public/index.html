@@ -26,6 +26,13 @@
     -->
     <title>Sentry Demo</title>
 
+    <script src="https://cdn.ravenjs.com/3.21.0/raven.min.js" crossorigin="anonymous"></script>
+    <script>
+      Raven.config('https://2658f0abd5a74ec688413bb43b4ac77e@sentry.io/228490', {
+        release: "%REAC_APP_RELEASE%"
+      }).install();
+    </script>
+
   </head>
   <body>
     <noscript>
