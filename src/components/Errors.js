@@ -62,16 +62,6 @@ class Errors extends Component {
         }, 1500);
     }
 
-    // RAVEN CONFIGURATIONS:
-    // setSampleTag() {
-    //     Raven.setTagsContext({sampleTag: "sampleValue"});
-    // }
-
-    // setExtraContext() {
-    //     Raven.setExtraContext({ foo: "bar" });
-    // }
-    // RAVEN CONFIGURATIONS (end)
-
     render() {
 
         return (
@@ -123,20 +113,6 @@ class Errors extends Component {
                         <li className="list-group-item" onClick={this.evalError}>
                             <h3>EvalError</h3>
                             <p>Hello</p>
-                        </li>
-                    </ul>
-
-                    <ul className="left list-group hidden" onClick={this.showError.bind(this, 'green')}>
-                        <li className="list-group-item list-group-item-success">
-                            <h3>FEATURES</h3>
-                        </li>
-                        <li className="list-group-item" onClick={this.setSampleTag}>
-                            <h3>Set Sample Tag</h3>
-                            <p>{'Raven.setTagsContext({sampleTag: "sampleValue"});'}</p>
-                        </li>
-                        <li className="list-group-item" onClick={this.setExtraContext}>
-                            <h3>Set Extra Context</h3>
-                            <p>{'Raven.setExtraContext({foo: "bar"});'}</p>
                         </li>
                     </ul>
                 </div>
