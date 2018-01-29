@@ -28,7 +28,7 @@ class Errors extends Component {
         var obj = {
             notTheRightFunction: function () {}
         };
-        obj.attributeInvalid();
+        obj.doesNotExist();
     }
 
     uriError() {
