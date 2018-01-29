@@ -52,7 +52,9 @@ class Errors extends Component {
     }
 
     evalError() {
-        throw new EvalError('Hello', 'someFile.js', 10);
+        setTimeout(() => {
+            throw new EvalError('Hello', 'someFile.js', 10);
+        }, 1000);
     }
     // ERRORS (end)
 
