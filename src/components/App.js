@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from '../assets/sentry-glyph-black.png';
 import './App.css';
-import Errors from './errors/Errors'
+import Errors from './Errors'
 
 class App extends Component {
     render() {

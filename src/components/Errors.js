@@ -2,7 +2,7 @@
 /*eslint no-unused-vars:0 no-eval:0*/
 
 import React, { Component } from 'react';
-import logo from '../../assets/sentry-glyph-black.png';
+import logo from '../assets/sentry-glyph-black.png';
 
 class Errors extends Component {
     constructor(props) {
