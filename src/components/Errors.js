@@ -19,6 +19,7 @@ class Errors extends Component {
     handleSubmit(event) {
         var email = this.state.email;
         this.setState({submitted_email: email});
+        Raven.setUserContext({email});
     }
 
     // ERRORS
