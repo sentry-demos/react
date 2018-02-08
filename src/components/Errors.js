@@ -26,9 +26,9 @@ class Errors extends Component {
     // ERRORS
     notAFunctionError() {
         var obj = {
-            notTheRightFunction: function () {}
+            invalidFunction: function () {}
         };
-        obj.doesNotExistWithMax();
+        obj.invalidFunction();
     }
 
     uriError() {
