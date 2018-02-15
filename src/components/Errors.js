@@ -10,6 +10,7 @@ class Errors extends Component {
         this.state = {color: 'black', email: '', submitted_email: ''};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        Raven.setTagsContext({page: "Checkout"});
     }
 
     handleChange(event) {
@@ -24,8 +25,10 @@ class Errors extends Component {
 
     // ERRORS
     notAFunctionError() {
-        var obj = {};
-        obj.invalidFunction();
+        var obj = {
+            validFunction: function () {}
+        };
+        obj.validFunction();
     }
 
     uriError() {
