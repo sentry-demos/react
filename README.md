@@ -9,9 +9,8 @@ Show how Sentry works
 ## First-time Setup
 1. Install dependencies
 ```
-npm install create-react-app
-npm install serve
-npm install sentry-cli
+npm install -g serve
+npm install -g sentry-cli
 npm install
 ```
 
