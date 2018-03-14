@@ -25,4 +25,4 @@ then add the name of `SENTRY_PROJECT`
 ```
 $ npm run deploy
 ```
-3. Go to http://localhost:3000 in your browser and begin throwing errors/events to Sentry!
+6. Go to http://localhost:3000 in your browser and begin throwing errors/events to Sentry!
