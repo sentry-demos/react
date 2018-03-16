@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -29,7 +30,30 @@
   <script src="https://cdn.ravenjs.com/3.22.1/raven.min.js" crossorigin="anonymous"></script>
   <script>
     Raven.config('https://2dd0744695234e0888158bdf67d5ae33@sentry.io/279552', {
-      release: "%REACT_APP_RELEASE%"
+      release: "%REACT_APP_RELEASE%",
+      
+      dataCallback: function (data) {
+        // iterate through all objects and looks through strings for matching value(s)
+        function scrub(valueToBeScrubbed, obj) {
+          if (typeof obj == 'object') { // array is also type object
+            for (var key in obj) {
+              if (typeof obj[key] == 'string') {
+                if (obj[key].indexOf(valueToBeScrubbed) !== -1) {
+                  obj[key] = obj[key].replace(valueToBeScrubbed, "SCRUBBED")
+                }
+              } else {
+                scrub(valueToBeScrubbed, obj[key])
+              }
+            }
+          }
+        }
+
+        // scrub value(s) here
+        scrub('value_to_be_scrubbed', data)
+
+        // data should not contain scrubbed values
+        return data;
+      }
     }).install();
   </script>
 
