@@ -24,10 +24,8 @@ class Errors extends Component {
 
     // ERRORS
     notAFunctionError() {
-        var obj = {
-            validFunction: function () {}
-        };
-        obj.validFunction();
+        var obj = {};
+        obj.invalidFunction();
     }
 
     uriError() {
@@ -76,7 +74,7 @@ class Errors extends Component {
                 <div className="form-group">
                     <input type="email" className="form-control" onChange={this.handleChange} placeholder="Enter email"/>
                 </div>
-                <button type="submit" onClick={this.handleSubmit} className="btn btn-primary">Submit</button>
+                <button type="submit" onClick={this.handleSubmit} className="btn btn-primary">Submit</button>                
             </form>
             </div>
 
