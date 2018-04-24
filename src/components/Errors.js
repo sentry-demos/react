@@ -8,7 +8,7 @@ class Errors extends Component {
 
   componentDidMount() {
     Raven.setTagsContext({
-        feature: "checkout"
+        feature: "frontend"
     });
   }
 
