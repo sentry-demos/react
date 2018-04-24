@@ -4,11 +4,6 @@ import './App.css';
 // import Errors from './Errors';
 
 class App extends Component {
-  componentDidMount() {
-    Raven.setTagsContext({
-        feature: "backend"
-    });
-  }
     render() {
         return (
             <div className="App">

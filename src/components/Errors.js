@@ -5,6 +5,13 @@ import React, { Component } from 'react';
 import logo from '../assets/sentry-glyph-black.png';
 
 class Errors extends Component {
+
+  componentDidMount() {
+    Raven.setTagsContext({
+        feature: "checkout"
+    });
+  }
+
     constructor(props) {
         super(props);
         this.state = {color: 'black', email: '', submitted_email: ''};
@@ -76,7 +83,7 @@ class Errors extends Component {
                 <div className="form-group">
                     <input type="email" className="form-control" onChange={this.handleChange} placeholder="Enter email"/>
                 </div>
-                <button type="submit" onClick={this.handleSubmit} className="btn btn-primary">Submit</button>                
+                <button type="submit" onClick={this.handleSubmit} className="btn btn-primary">Submit</button>
             </form>
             </div>
 
