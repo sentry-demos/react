@@ -10,7 +10,7 @@ Show how Sentry works
 1. Install dependencies
 ```
 npm install -g serve
-npm install -g sentry-cli
+npm install @sentry/cli
 npm install
 ```
 
