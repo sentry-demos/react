@@ -25,9 +25,9 @@ class Errors extends Component {
     // ERRORS
     notAFunctionError() {
         var obj = {
-            a: function () {}
+            validFunction: function () {}
         };
-        obj.abc();
+        obj.validFunction();
     }
 
     uriError() {
