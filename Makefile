@@ -3,7 +3,7 @@
 #  SENTRY_AUTH_TOKEN
 
 SENTRY_ORG=testorg-az
-SENTRY_PROJECT=react-demo-d3
+SENTRY_PROJECT=ndmanvar-react
 VERSION=`sentry-cli releases propose-version`
 PREFIX=static/js
 REPO=ndmanvar/react
