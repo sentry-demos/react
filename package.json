@@ -2,7 +2,6 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://sentry-demos.github.io/react",
   "dependencies": {
     "history": "^1.17.0",
     "material-ui": "^0.18.7",
