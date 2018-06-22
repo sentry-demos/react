@@ -6,11 +6,11 @@ import logo from '../assets/sentry-glyph-black.png';
 
 class Errors extends Component {
 
-  componentDidMount() {
-    Raven.setTagsContext({
-        feature: "frontend"
-    });
-  }
+    componentDidMount() {
+        Raven.setTagsContext({
+            feature: "frontend"
+        });
+    }
 
     constructor(props) {
         super(props);
@@ -31,9 +31,7 @@ class Errors extends Component {
 
     // ERRORS
     notAFunctionError() {
-        var obj = {
-            validFunction: function () {}
-        };
+        var obj = {};
         obj.invalidFunction();
     }
 
