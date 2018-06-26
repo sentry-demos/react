@@ -6,12 +6,30 @@ Show how Sentry works
 - Configuration
 - Releases/SourceMaps
 
+<<<<<<< HEAD
 
 ## Setup
 1. Configure Raven with your `PUBLIC_DSN_KEY` in index.html
 2. Setup and Deploy
+=======
+## First-time Setup
+1. Install dependencies
 ```
-$ npm install
+npm install -g serve
+npm install @sentry/cli
+npm install
+```
+
+2. Configure Raven with your `PUBLIC_DSN_KEY` in index.html
+3. Remember to include your `SENTRY_AUTH_TOKEN`; you'll need to generate one
+first from your Sentry server. After doing so, a cheap and easy way to use the
+token would be this: `export SENTRY_AUTH_TOKEN=1010101011010101`
+4. Make sure that your Github repo is integrated into your Sentry organization.
+5. Enter your Sentry organization slug in the `SENTRY_ORG` line of your Makefile,
+then add the name of `SENTRY_PROJECT`
+
+>>>>>>> c5e9e557c2fbe1d9383ed55be141d7e19f3fc2b1
+```
 $ npm run deploy
 ```
-3. Go to http://localhost:3000 in your browser and begin throwing errors/events to Sentry!
+6. Go to http://localhost:5000 in your browser and begin throwing errors/events to Sentry!

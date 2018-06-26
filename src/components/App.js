@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from '../assets/sentry-glyph-black.png';
 import './App.css';
-import Errors from './Errors'
+// import Errors from './Errors';
 
 class App extends Component {
     render() {
@@ -14,7 +14,6 @@ class App extends Component {
                 <p className="App-intro">
                 </p>
                 {this.props.children}
-                <Errors />
             </div>
         );
     }
