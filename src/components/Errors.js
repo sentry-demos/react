@@ -32,7 +32,7 @@ class Errors extends Component {
     // ERRORS
     notAFunctionError() {
         var obj = {};
-        obj.invalidFunction();
+        obj.doesNotExist();
     }
 
     uriError() {
@@ -125,7 +125,6 @@ class Errors extends Component {
                     </ul>
                 </div>
             </div>
-
         );
     }
 }
