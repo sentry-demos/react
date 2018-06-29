@@ -11,7 +11,7 @@
     "react-scripts": "1.0.10"
   },
   "scripts": {
-    "predeploy": " npm run build && make setup_release",
+    "predeploy": "npm run build && make setup_release",
     "deploy": "serve -s build",
     "start": "REACT_APP_RELEASE=`sentry-cli releases propose-version` react-scripts start",
     "build": "REACT_APP_RELEASE=`sentry-cli releases propose-version` react-scripts build",
