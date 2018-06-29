@@ -6,7 +6,6 @@ SENTRY_ORG=testorg-az
 SENTRY_PROJECT=react-demo-d3
 VERSION=`sentry-cli releases propose-version`
 PREFIX=static/js
-REPO=ndmanvar/react
 
 setup_release: create_release associate_commits upload_sourcemaps
 
