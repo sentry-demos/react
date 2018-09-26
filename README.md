@@ -25,4 +25,4 @@ $ npm run deploy
 ```
 6. Go to http://localhost:5000 in your browser and begin throwing errors/events to Sentry!
 
-![Setup GIF](TODO)
+![Alt Text](demo.gif)
