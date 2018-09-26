@@ -27,13 +27,14 @@
   <title>Sentry Demo</title>
 
   <!-- Import SDK -->
-  <script src="https://cdn.ravenjs.com/3.22.1/raven.min.js" crossorigin="anonymous"></script>
+  <script src="https://browser.sentry-cdn.com/4.0.5/bundle.min.js" crossorigin="anonymous"></script>
 
   <!-- Configure SDK -->
   <script>
-    Raven.config('https://9057d77c278543aa9fa04f01448884f6@sentry.io/279552', {
+    Sentry.init({
+      dsn: 'https://9057d77c278543aa9fa04f01448884f6@sentry.io/279552',
       release: "%REACT_APP_RELEASE%"
-    }).install();
+    });
   </script>
 
 </head>

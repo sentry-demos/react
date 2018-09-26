@@ -1,14 +1,14 @@
-/*global undefinedVariable:false Raven:false*/
+/*global undefinedVariable:false Sentry:false*/
 /*eslint no-unused-vars:0 no-eval:0*/
 
 import React, { Component } from 'react';
-import logo from '../assets/sentry-glyph-black.png';
 
 class Errors extends Component {
 
     componentDidMount() {
-        Raven.setTagsContext({
-            feature: "frontend"
+        Sentry.configureScope((scope) => {
+            scope.setTag("component", "Errors");
+            scope.setTag("customerType", "medium-plan");
         });
     }
 
@@ -26,7 +26,10 @@ class Errors extends Component {
     handleSubmit(event) {
         var email = this.state.email;
         this.setState({submitted_email: email});
-        Raven.setUserContext({email});
+        Sentry.configureScope((scope) => {
+            scope.setUser({email});
+        });
+        // Raven.setUserContext({email});
     }
 
     // ERRORS
