@@ -1,13 +1,13 @@
-/*global undefinedVariable:false Raven:false*/
+/*global undefinedVariable:false Sentry:false*/
 /*eslint no-unused-vars:0 no-eval:0*/
 
 import React, {Component} from 'react';
 
 class Checkout extends Component {
 componentDidMount() {
-  Raven.setTagsContext({
-      feature: "checkout"
-  });
+    Sentry.configureScope((scope) => {
+        scope.setTag("feature", "checkout");
+    });
 }
 
 constructor(props) {
@@ -24,7 +24,9 @@ handleChange(event) {
 handleSubmit(event) {
     var email = this.state.email;
     this.setState({submitted_email: email});
-    Raven.setUserContext({email});
+    Sentry.configureScope((scope) => {
+        scope.setUser({email});
+    });
 }
 
 // ERRORS

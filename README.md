@@ -14,7 +14,7 @@ npm install -g @sentry/cli
 npm install
 ```
 
-2. Configure Raven with your `PUBLIC_DSN_KEY` in index.html
+2. Configure Sentry with your `PUBLIC_DSN_KEY` in index.html
 3. Remember to include your `SENTRY_AUTH_TOKEN`; you'll need to generate one
 first from your Sentry server. After doing so, a cheap and easy way to use the
 token would be this: `export SENTRY_AUTH_TOKEN=1010101011010101`

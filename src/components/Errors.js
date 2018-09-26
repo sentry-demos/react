@@ -29,7 +29,6 @@ class Errors extends Component {
         Sentry.configureScope((scope) => {
             scope.setUser({email});
         });
-        // Raven.setUserContext({email});
     }
 
     // ERRORS
