@@ -33,10 +33,7 @@
   <script>
     Sentry.init({
       dsn: 'https://9057d77c278543aa9fa04f01448884f6@sentry.io/279552',
-      release: "%REACT_APP_RELEASE%",
-      beforeSend: function (data) {
-        data.extra.cookies = window.cookies.toString();
-      }
+      release: "%REACT_APP_RELEASE%"
     });
   </script>
 
