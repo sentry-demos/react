@@ -2,6 +2,9 @@
 
 import React, { Component } from 'react';
 import './App.css';
+import screwdriverImg from '../assets/screwdriver.png';
+import nailsImg from '../assets/nails.png';
+import hammerImg from '../assets/hammer.png';
 
 class App extends Component {
   constructor(props) {
@@ -44,19 +47,19 @@ class App extends Component {
           <h4>Hi, {this.email}!</h4>
           <div>
             <div className="item">
-              <img src="https://1001freedownloads.s3.amazonaws.com/vector/thumb/146003/johnny_automatic_simple_screwdriver.png" className="App-logo" alt="logo" />
+              <img src={screwdriverImg} className="App-logo" alt="logo" />
               <p>Screwdriver</p>
               <button onClick={() => this.buyItem('screwdriver')}> Buy! </button>
             </div>
 
             <div className="item">
-              <img src="http://images.clipartpanda.com/nail-clip-art-nail-clipart2.png" className="App-logo" alt="logo" />
+              <img src={nailsImg} className="App-logo" alt="logo" />
               <p>Nails</p>
               <button onClick={() => this.buyItem('nails')}> Buy! </button>
             </div>
 
             <div className="item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Tools-hammer.svg/2000px-Tools-hammer.svg.png" className="App-logo" alt="logo" />
+                <img src={hammerImg} className="App-logo" alt="logo" />
                 <p>Hammer</p>
                 <button onClick={() => this.buyItem('hammer')}> Buy! </button>
             </div>
