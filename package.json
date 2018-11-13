@@ -15,7 +15,6 @@
     "deploy": "serve -s build",
     "start": "REACT_APP_RELEASE=`sentry-cli releases propose-version` react-scripts start",
     "build": "REACT_APP_RELEASE=`sentry-cli releases propose-version` react-scripts build",
-    "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "deploy-ghp": "npm run predeploy && gh-pages -d build"
   },
