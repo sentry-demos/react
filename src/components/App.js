@@ -54,6 +54,12 @@ class App extends Component {
               <p>Nails</p>
               <button onClick={() => this.buyItem('nails')}> Buy! </button>
             </div>
+
+            <div className="item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Tools-hammer.svg/2000px-Tools-hammer.svg.png" className="App-logo" alt="logo" />
+                <p>Hammer</p>
+                <button onClick={() => this.buyItem('hammer')}> Buy! </button>
+            </div>
           </div>
         </header>
       </div>
