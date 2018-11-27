@@ -19,9 +19,6 @@ class App extends Component {
       },
       screwdriver: {
         price: 5
-      },
-      hammer: {
-        price: 10
       }
     };
     this.buyItem = this.buyItem.bind(this);
@@ -33,8 +30,6 @@ class App extends Component {
         scope.setUser({ email: this.email}); // attach user/email context
         scope.setTag("customerType", "medium-plan"); // custom-tag
     });
-
-    Sentry.captureMessage('abczzz');
   }
 
   buyItem(item) {
