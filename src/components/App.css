@@ -105,6 +105,19 @@ button {
   outline: none;
 }
 
+button:disabled {
+  opacity: 0.5;
+  background-color: #777088;
+  border-color: #777088;
+  cursor: default;
+}
+
+button:disabled:hover {
+  background-color: #777088;
+  border-color: #777088;
+  cursor: default;
+}
+
 button:hover {
   background-color: #5243bd;
   border-color: #5243bd;
@@ -162,9 +175,15 @@ main button {
   flex: 0;
 }
 
-.cart-reset {
+.cart-error {
+  color: #f36e4f;
+}
+
+.cart-reset,
+.cart-reset:hover {
+  background-color: transparent;
+  border: 0;
   color: #fff;
-  display: inline-block;
+  font-weight: normal;
   margin-left: 15px;
-  text-decoration: none;
 }

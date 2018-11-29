@@ -46,6 +46,11 @@ class App extends Component {
   }
 
   componentDidMount() {
+    const defaultError = window.onerror;
+    window.onerror = error => {
+      this.setState({ hasError: true });
+      defaultError(error);
+    };
     // Add context to error/event
     Sentry.configureScope(scope => {
       scope.setUser({ email: this.email }); // attach user/email context
@@ -62,7 +67,11 @@ class App extends Component {
 
   resetCart(event) {
     event.preventDefault();
-    this.setState({ cart: [] });
+    this.setState({ cart: [], hasError: false });
+  }
+
+  proceedToCheckout() {
+    this.myCodeIsPerfect();
   }
 
   render() {
@@ -132,10 +141,20 @@ class App extends Component {
               "Your cart is empty"
             )}
           </div>
-          <button>Proceed to checkout</button>{" "}
-          <button onClick={this.resetCart} className="cart-reset">
-            Empty cart
-          </button>
+          {this.state.hasError && (
+            <p className="cart-error">Somethign went wrong</p>
+          )}
+          <button
+            onClick={this.proceedToCheckout}
+            disabled={this.state.cart.length === 0}
+          >
+            Proceed to checkout
+          </button>{" "}
+          {this.state.cart.length > 0 && (
+            <button onClick={this.resetCart} className="cart-reset">
+              Empty cart
+            </button>
+          )}
         </div>
       </div>
     );
