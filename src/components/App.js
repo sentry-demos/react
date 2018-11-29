@@ -1,10 +1,10 @@
 /*global Sentry*/
 
-import React, { Component } from 'react';
-import './App.css';
-import wrenchImg from '../assets/wrench.png';
-import nailsImg from '../assets/nails.png';
-import hammerImg from '../assets/hammer.png';
+import React, { Component } from "react";
+import "./App.css";
+import wrenchImg from "../assets/wrench.png";
+import nailsImg from "../assets/nails.png";
+import hammerImg from "../assets/hammer.png";
 
 const monify = n => (n / 100).toFixed(2);
 
@@ -19,24 +19,24 @@ class App extends Component {
     this.email =
       Math.random()
         .toString(36)
-        .substring(2, 6) + '@yahoo.com';
+        .substring(2, 6) + "@yahoo.com";
 
     this.store = [
       {
-        id: 'wrench',
-        name: 'Wrench',
+        id: "wrench",
+        name: "Wrench",
         price: 500,
         img: wrenchImg
       },
       {
-        id: 'nails',
-        name: 'Nails',
+        id: "nails",
+        name: "Nails",
         price: 25,
         img: nailsImg
       },
       {
-        id: 'hammer',
-        name: 'Hammer',
+        id: "hammer",
+        name: "Hammer",
         price: 1000,
         img: hammerImg
       }
@@ -49,7 +49,7 @@ class App extends Component {
     // Add context to error/event
     Sentry.configureScope(scope => {
       scope.setUser({ email: this.email }); // attach user/email context
-      scope.setTag('customerType', 'medium-plan'); // custom-tag
+      scope.setTag("customerType", "medium-plan"); // custom-tag
     });
   }
 
@@ -129,10 +129,10 @@ class App extends Component {
                 </div>
               </div>
             ) : (
-              'Your cart is empty'
+              "Your cart is empty"
             )}
           </div>
-          <button>Proceed to checkout</button>{' '}
+          <button>Proceed to checkout</button>{" "}
           <a href="#" onClick={this.resetCart} className="cart-reset">
             Empty cart
           </a>

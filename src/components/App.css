@@ -7,7 +7,7 @@ html,
 .App {
   align-items: stretch;
   display: flex;
-  font-family: 'Karla', sans-serif;
+  font-family: "Karla", sans-serif;
   height: 100%;
   width: 100%;
 }
@@ -65,7 +65,7 @@ main header {
 }
 
 .thumbnail:before {
-  content: '';
+  content: "";
   display: block;
   padding-top: 100%;
   position: relative;
