@@ -133,9 +133,9 @@ class App extends Component {
             )}
           </div>
           <button>Proceed to checkout</button>{" "}
-          <a href="#" onClick={this.resetCart} className="cart-reset">
+          <button onClick={this.resetCart} className="cart-reset">
             Empty cart
-          </a>
+          </button>
         </div>
       </div>
     );
