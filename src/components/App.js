@@ -19,9 +19,6 @@ class App extends Component {
       },
       screwdriver: {
         price: 5
-      },
-      hammer: {
-        price: 10
       }
     };
     this.buyItem = this.buyItem.bind(this);
