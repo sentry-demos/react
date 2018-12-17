@@ -3,12 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@sentry/cli": "^1.37.0",
     "history": "^1.17.0",
     "material-ui": "^0.18.7",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
     "react-router": "^1.0.3",
-    "react-scripts": "1.0.10"
+    "react-scripts": "1.0.10",
+    "serve": "^10.1.1"
   },
   "scripts": {
     "predeploy": "npm run build && make setup_release",
