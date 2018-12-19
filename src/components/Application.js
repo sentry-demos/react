@@ -71,7 +71,7 @@ class App extends Component {
   }
 
   proceedToCheckout() {
-    this.myCodeIsNotPerfect();
+    this.myCodeIsPerfect();
   }
 
   render() {
