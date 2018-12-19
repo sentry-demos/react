@@ -34,19 +34,11 @@ class App extends Component {
         price: 25,
         img: nailsImg
       },
-<<<<<<< HEAD
-      screwdriver: {
-        price: 5
-      },
-      hammer: {
-        price: 10
-=======
       {
         id: "hammer",
         name: "Hammer",
         price: 1000,
         img: hammerImg
->>>>>>> d5edfc6b45325475f85b8c318f375ebd26517699
       }
     ];
     this.buyItem = this.buyItem.bind(this);
