@@ -142,7 +142,7 @@ class App extends Component {
             )}
           </div>
           {this.state.hasError && (
-            <p className="cart-error">Somethign went wrong</p>
+            <p className="cart-error">Something went wrong</p>
           )}
           <button
             onClick={this.proceedToCheckout}
