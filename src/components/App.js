@@ -148,7 +148,7 @@ class App extends Component {
             onClick={this.proceedToCheckout}
             disabled={this.state.cart.length === 0}
           >
-            Proceed to checkout
+            Checkout
           </button>{" "}
           {this.state.cart.length > 0 && (
             <button onClick={this.resetCart} className="cart-reset">
