@@ -42,6 +42,7 @@ class App extends Component {
       }
     ];
     this.buyItem = this.buyItem.bind(this);
+    this.checkout = this.checkout.bind(this);
     this.resetCart = this.resetCart.bind(this);
   }
 
@@ -63,15 +64,54 @@ class App extends Component {
     cart.push(item);
     console.log(item);
     this.setState({ cart });
+
+    Sentry.configureScope(scope => {
+      scope.setExtra('cart', JSON.stringify(cart));
+    });
+    Sentry.addBreadcrumb({
+      category: 'cart',
+      message: 'User added ' + item.name + ' to cart',
+      level: 'info'
+    });
   }
 
   resetCart(event) {
     event.preventDefault();
     this.setState({ cart: [], hasError: false });
+
+    Sentry.configureScope(scope => {
+      scope.setExtra('cart', '');
+    });
+    Sentry.addBreadcrumb({
+      category: 'cart',
+      message: 'User emptied cart',
+      level: 'info'
+    });
   }
 
-  proceedToCheckout() {
-    this.myCodeIsNotPerfect();
+  checkout() {
+    // this.myCodeIsNotPerfect();
+
+    const data = {
+      email: this.email,
+      cart: this.state.cart
+    };
+
+    fetch('http://localhost:3001/checkout/', { // TODO: replace with correct endpoint
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'X-Transaction-ID': '_' + Math.random().toString(36).substr(2, 9)
+      },
+      body: JSON.stringify(data)
+    }).then(res => {
+      if (res.status !== 200) {
+        throw Error(res.status + ' - ' + res.statusText);
+      }
+    }).catch(error => {
+      throw error;
+    });
   }
 
   render() {
@@ -145,7 +185,7 @@ class App extends Component {
             <p className="cart-error">Something went wrong</p>
           )}
           <button
-            onClick={this.proceedToCheckout}
+            onClick={this.checkout}
             disabled={this.state.cart.length === 0}
           >
             Checkout
