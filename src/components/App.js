@@ -6,6 +6,8 @@ import wrenchImg from "../assets/wrench.png";
 import nailsImg from "../assets/nails.png";
 import hammerImg from "../assets/hammer.png";
 
+const request = require('request');
+
 const monify = n => (n / 100).toFixed(2);
 
 class App extends Component {
@@ -63,7 +65,7 @@ class App extends Component {
     const cart = [].concat(this.state.cart);
     cart.push(item);
     console.log(item);
-    this.setState({ cart });
+    this.setState({ cart, success: false });
 
     Sentry.configureScope(scope => {
       scope.setExtra('cart', JSON.stringify(cart));
@@ -77,7 +79,7 @@ class App extends Component {
 
   resetCart(event) {
     event.preventDefault();
-    this.setState({ cart: [], hasError: false });
+    this.setState({ cart: [], hasError: false, success: false });
 
     Sentry.configureScope(scope => {
       scope.setExtra('cart', '');
@@ -92,26 +94,30 @@ class App extends Component {
   checkout() {
     // this.myCodeIsNotPerfect();
 
-    const data = {
+    const order = {
       email: this.email,
       cart: this.state.cart
     };
 
-    fetch('http://localhost:3001/checkout/', { // TODO: replace with correct endpoint
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'X-Transaction-ID': '_' + Math.random().toString(36).substr(2, 9)
-      },
-      body: JSON.stringify(data)
-    }).then(res => {
-      if (res.status !== 200) {
-        throw Error(res.status + ' - ' + res.statusText);
-      }
-    }).catch(error => {
-      throw error;
+    const transactionId = '_' + Math.random().toString(36).substr(2, 9); // generate random transaction ID for each request.
+    Sentry.configureScope(scope => {
+      scope.setTag("transaction_id", transactionId);
     });
+
+    request.post("http://localhost:3001/checkout/", { json: order }, (error, response, body) => {
+      // debugger;
+      if (error) {
+        throw error;
+      }
+      if (response.statusCode === 200) {
+        this.setState({ success: true });
+
+      } else {
+        this.setState({ success: false });
+        // Sentry.captureMessage(response.statusCode + " - " + response.statusMessage);
+        throw new Error(response.statusCode + " - " + response.statusMessage);
+      }
+    }); // TODO: dynamic endpoint
   }
 
   render() {
@@ -183,6 +189,9 @@ class App extends Component {
           </div>
           {this.state.hasError && (
             <p className="cart-error">Something went wrong</p>
+          )}
+          {this.state.success && (
+            <p className="cart-success">Success!</p>
           )}
           <button
             onClick={this.checkout}
