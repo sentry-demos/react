@@ -51,7 +51,7 @@ class App extends Component {
   componentDidMount() {
     const defaultError = window.onerror;
     window.onerror = error => {
-      this.setState({ hasError: true });
+      this.setState({ hasError: true, success: false });
       defaultError(error);
     };
     // Add context to error/event
@@ -104,20 +104,24 @@ class App extends Component {
       scope.setTag("transaction_id", transactionId);
     });
 
-    request.post("http://localhost:3001/checkout/", { json: order }, (error, response, body) => {
-      // debugger;
-      if (error) {
-        throw error;
+    request.post({
+        url: "http://localhost:3001/checkout",
+        json: order,
+        headers: {
+          "X-Transaction-ID": transactionId
+        }
+      }, (error, response, body) => {
+        if (error) {
+          throw error;
+        }
+        if (response.statusCode === 200) {
+          this.setState({ success: true });
+        } else {
+          // Sentry.captureMessage(response.statusCode + " - " + response.statusMessage);
+          throw new Error(response.statusCode + " - " + response.statusMessage);
+        }
       }
-      if (response.statusCode === 200) {
-        this.setState({ success: true });
-
-      } else {
-        this.setState({ success: false });
-        // Sentry.captureMessage(response.statusCode + " - " + response.statusMessage);
-        throw new Error(response.statusCode + " - " + response.statusMessage);
-      }
-    }); // TODO: dynamic endpoint
+    ); // TODO: dynamic endpoint
   }
 
   render() {
@@ -191,7 +195,7 @@ class App extends Component {
             <p className="cart-error">Something went wrong</p>
           )}
           {this.state.success && (
-            <p className="cart-success">Success!</p>
+            <p className="cart-success">Thank you for your purchase!</p>
           )}
           <button
             onClick={this.checkout}
