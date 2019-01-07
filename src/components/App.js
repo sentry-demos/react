@@ -110,7 +110,7 @@ class App extends Component {
       scope.setTag("transaction_id", transactionId);
     });
 
-    // perform request (set transctionID as header and throw error appriately)
+    // perform request (set transctionID as header and throw error appropriately)
     request.post({
         url: "http://localhost:3001/checkout",
         json: order,
