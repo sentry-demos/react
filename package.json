@@ -14,7 +14,7 @@
     "serve": "^10.1.1"
   },
   "scripts": {
-    "predeploy": "npm run build",
+    "predeploy": "npm run build && make setup_release",
     "deploy": "serve -s build",
     "start": "REACT_APP_RELEASE=`sentry-cli releases propose-version` react-scripts start",
     "build": "REACT_APP_RELEASE=`sentry-cli releases propose-version` react-scripts build",
