@@ -94,13 +94,18 @@ class App extends Component {
   checkout() {
     this.myCodeIsNotPerfect();
 
+    /*
+      POST request to /checkout endpoint.
+        - Custom header with transactionId for transaction tracing
+        - throw error if response !== 200
+    */
     const order = {
       email: this.email,
       cart: this.state.cart
     };
 
     // generate unique transactionId and set as Sentry tag
-    const transactionId = '_' + Math.random().toString(36).substr(2, 9); // generate random transaction ID for each request.
+    const transactionId = '_' + Math.random().toString(36).substr(2, 9);
     Sentry.configureScope(scope => {
       scope.setTag("transaction_id", transactionId);
     });
