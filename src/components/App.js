@@ -92,7 +92,7 @@ class App extends Component {
   }
 
   checkout() {
-    // this.myCodeIsNotPerfect();
+    this.myCodeIsNotPerfect();
 
     const order = {
       email: this.email,
