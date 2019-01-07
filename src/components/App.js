@@ -99,29 +99,30 @@ class App extends Component {
       cart: this.state.cart
     };
 
+    // generate unique transactionId and set as Sentry tag
     const transactionId = '_' + Math.random().toString(36).substr(2, 9); // generate random transaction ID for each request.
     Sentry.configureScope(scope => {
       scope.setTag("transaction_id", transactionId);
     });
 
+    // perform request (set transctionID as header and throw error appriately)
     request.post({
         url: "http://localhost:3001/checkout",
         json: order,
         headers: {
           "X-Transaction-ID": transactionId
         }
-      }, (error, response, body) => {
+      }, (error, response) => {
         if (error) {
           throw error;
         }
         if (response.statusCode === 200) {
           this.setState({ success: true });
         } else {
-          // Sentry.captureMessage(response.statusCode + " - " + response.statusMessage);
           throw new Error(response.statusCode + " - " + response.statusMessage);
         }
       }
-    ); // TODO: dynamic endpoint
+    );
   }
 
   render() {
