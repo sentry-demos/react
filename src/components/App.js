@@ -6,6 +6,8 @@ import wrenchImg from "../assets/wrench.png";
 import nailsImg from "../assets/nails.png";
 import hammerImg from "../assets/hammer.png";
 
+const request = require('request');
+
 const monify = n => (n / 100).toFixed(2);
 
 class App extends Component {
@@ -42,13 +44,14 @@ class App extends Component {
       }
     ];
     this.buyItem = this.buyItem.bind(this);
+    this.checkout = this.checkout.bind(this);
     this.resetCart = this.resetCart.bind(this);
   }
 
   componentDidMount() {
     const defaultError = window.onerror;
     window.onerror = error => {
-      this.setState({ hasError: true });
+      this.setState({ hasError: true, success: false });
       defaultError(error);
     };
     // Add context to error/event
@@ -62,16 +65,69 @@ class App extends Component {
     const cart = [].concat(this.state.cart);
     cart.push(item);
     console.log(item);
-    this.setState({ cart });
+    this.setState({ cart, success: false });
+
+    Sentry.configureScope(scope => {
+      scope.setExtra('cart', JSON.stringify(cart));
+    });
+    Sentry.addBreadcrumb({
+      category: 'cart',
+      message: 'User added ' + item.name + ' to cart',
+      level: 'info'
+    });
   }
 
   resetCart(event) {
     event.preventDefault();
-    this.setState({ cart: [], hasError: false });
+    this.setState({ cart: [], hasError: false, success: false });
+
+    Sentry.configureScope(scope => {
+      scope.setExtra('cart', '');
+    });
+    Sentry.addBreadcrumb({
+      category: 'cart',
+      message: 'User emptied cart',
+      level: 'info'
+    });
   }
 
-  proceedToCheckout() {
-    this.myCodeIsGood();
+  checkout() {
+    this.myCodeIsNotPerfect();
+
+    /*
+      POST request to /checkout endpoint.
+        - Custom header with transactionId for transaction tracing
+        - throw error if response !== 200
+    */
+    const order = {
+      email: this.email,
+      cart: this.state.cart
+    };
+
+    // generate unique transactionId and set as Sentry tag
+    const transactionId = '_' + Math.random().toString(36).substr(2, 9);
+    Sentry.configureScope(scope => {
+      scope.setTag("transaction_id", transactionId);
+    });
+
+    // perform request (set transctionID as header and throw error appropriately)
+    request.post({
+        url: "http://localhost:3001/checkout",
+        json: order,
+        headers: {
+          "X-Transaction-ID": transactionId
+        }
+      }, (error, response) => {
+        if (error) {
+          throw error;
+        }
+        if (response.statusCode === 200) {
+          this.setState({ success: true });
+        } else {
+          throw new Error(response.statusCode + " - " + response.statusMessage);
+        }
+      }
+    );
   }
 
   render() {
@@ -144,8 +200,11 @@ class App extends Component {
           {this.state.hasError && (
             <p className="cart-error">Something went wrong</p>
           )}
+          {this.state.success && (
+            <p className="cart-success">Thank you for your purchase!</p>
+          )}
           <button
-            onClick={this.proceedToCheckout}
+            onClick={this.checkout}
             disabled={this.state.cart.length === 0}
           >
             Checkout

@@ -28,8 +28,16 @@
   <!-- Configure SDK -->
   <script>
     Sentry.init({
-      dsn: 'https://9057d77c278543aa9fa04f01448884f6@sentry.io/279552',
-      release: "%REACT_APP_RELEASE%"
+      dsn: 'https://f3e1b754a04b4dc1be1b54454ec6d238@sentry.io/1356467',
+      release: "%REACT_APP_RELEASE%",
+      environment: "prod",
+      beforeSend(event) {
+        // Check if it is an exception, if so, show the report dialog
+        if (event.exception) {
+          Sentry.showReportDialog();
+        }
+        return event;
+      }
     });
   </script>
 <link href="https://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">
