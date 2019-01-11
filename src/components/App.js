@@ -91,10 +91,6 @@ class App extends Component {
     });
   }
 
-<<<<<<< HEAD
-  proceedToCheckout() {
-    this.myCodeIsNotPerfect();
-=======
   checkout() {
     this.myCodeIsNotPerfect();
 
@@ -132,7 +128,6 @@ class App extends Component {
         }
       }
     );
->>>>>>> e72d6e7e9adf33191fcba4a717098419eda85f58
   }
 
   render() {
