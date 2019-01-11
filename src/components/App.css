@@ -184,6 +184,10 @@ main button {
   color: #f36e4f;
 }
 
+.cart-success {
+  color: #4ff375;
+}
+
 .cart-reset,
 .cart-reset:hover {
   background-color: transparent;
