@@ -46,6 +46,15 @@ class App extends Component {
     this.buyItem = this.buyItem.bind(this);
     this.checkout = this.checkout.bind(this);
     this.resetCart = this.resetCart.bind(this);
+
+    // generate unique sessionId and set as Sentry tag
+    Sentry.configureScope(scope => {
+      scope.setTag("session_id", this.getUniqueId());
+    });
+  }
+
+  getUniqueId() {
+    return '_' + Math.random().toString(36).substr(2, 9);
   }
 
   componentDidMount() {
@@ -105,7 +114,7 @@ class App extends Component {
     };
 
     // generate unique transactionId and set as Sentry tag
-    const transactionId = '_' + Math.random().toString(36).substr(2, 9);
+    const transactionId = this.getUniqueId();
     Sentry.configureScope(scope => {
       scope.setTag("transaction_id", transactionId);
     });
