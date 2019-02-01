@@ -4,7 +4,8 @@
 Show how Sentry works
 - Import/Integrate
 - Configuration
-- Releases/SourceMaps
+- Releases/SourceMaps/Commits
+- Session + Transcation tracing (correlate errors across FE, BE, etc.)
 
 ## First-time Setup
 1. Use the nvmrc file to set a compatible node version.

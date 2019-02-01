@@ -48,8 +48,9 @@ class App extends Component {
     this.resetCart = this.resetCart.bind(this);
 
     // generate unique sessionId and set as Sentry tag
+    this.sessionId = this.getUniqueId();
     Sentry.configureScope(scope => {
-      scope.setTag("session_id", this.getUniqueId());
+      scope.setTag("session_id", this.sessionId);
     });
   }
 
@@ -101,7 +102,7 @@ class App extends Component {
   }
 
   checkout() {
-    this.myCodeIsPerfect();
+    // this.myCodeIsPerfect();
 
     /*
       POST request to /checkout endpoint.
@@ -124,6 +125,7 @@ class App extends Component {
         url: "http://localhost:3001/checkout",
         json: order,
         headers: {
+          "X-Session-ID": this.sessionId,
           "X-Transaction-ID": transactionId
         }
       }, (error, response) => {
