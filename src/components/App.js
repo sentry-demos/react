@@ -9,6 +9,7 @@ import hammerImg from "../assets/hammer.png";
 const request = require('request');
 
 const monify = n => (n / 100).toFixed(2);
+const getUniqueId = () => '_' + Math.random().toString(36).substr(2, 9);
 
 class App extends Component {
   constructor(props) {
@@ -48,14 +49,10 @@ class App extends Component {
     this.resetCart = this.resetCart.bind(this);
 
     // generate unique sessionId and set as Sentry tag
-    this.sessionId = this.getUniqueId();
+    this.sessionId = getUniqueId();
     Sentry.configureScope(scope => {
       scope.setTag("session_id", this.sessionId);
     });
-  }
-
-  getUniqueId() {
-    return '_' + Math.random().toString(36).substr(2, 9);
   }
 
   componentDidMount() {
@@ -115,7 +112,7 @@ class App extends Component {
     };
 
     // generate unique transactionId and set as Sentry tag
-    const transactionId = this.getUniqueId();
+    const transactionId = getUniqueId();
     Sentry.configureScope(scope => {
       scope.setTag("transaction_id", transactionId);
     });
