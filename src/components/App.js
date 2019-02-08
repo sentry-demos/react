@@ -9,6 +9,7 @@ import hammerImg from "../assets/hammer.png";
 const request = require('request');
 
 const monify = n => (n / 100).toFixed(2);
+const getUniqueId = () => '_' + Math.random().toString(36).substr(2, 9);
 
 class App extends Component {
   constructor(props) {
@@ -46,6 +47,12 @@ class App extends Component {
     this.buyItem = this.buyItem.bind(this);
     this.checkout = this.checkout.bind(this);
     this.resetCart = this.resetCart.bind(this);
+
+    // generate unique sessionId and set as Sentry tag
+    this.sessionId = getUniqueId();
+    Sentry.configureScope(scope => {
+      scope.setTag("session_id", this.sessionId);
+    });
   }
 
   componentDidMount() {
@@ -92,7 +99,7 @@ class App extends Component {
   }
 
   checkout() {
-    this.myCodeIsNotPerfect();
+    this.myCodeIsPerfect();
 
     /*
       POST request to /checkout endpoint.
@@ -105,7 +112,7 @@ class App extends Component {
     };
 
     // generate unique transactionId and set as Sentry tag
-    const transactionId = '_' + Math.random().toString(36).substr(2, 9);
+    const transactionId = getUniqueId();
     Sentry.configureScope(scope => {
       scope.setTag("transaction_id", transactionId);
     });
@@ -115,6 +122,7 @@ class App extends Component {
         url: "http://localhost:3001/checkout",
         json: order,
         headers: {
+          "X-Session-ID": this.sessionId,
           "X-Transaction-ID": transactionId
         }
       }, (error, response) => {

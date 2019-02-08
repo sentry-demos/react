@@ -4,7 +4,8 @@
 Show how Sentry works
 - Import/Integrate
 - Configuration
-- Releases/SourceMaps
+- Releases/SourceMaps/Commits
+- Session + Transcation Tracing (correlate errors across FE, BE, etc.)
 
 ## First-time Setup
 1. Use the nvmrc file to set a compatible node version.
@@ -31,3 +32,6 @@ $ npm run deploy
 7. Go to http://localhost:5000 in your browser and begin throwing errors/events to Sentry!
 
 ![Alt Text](configure-launch-react-demo.gif)
+
+# Tracing and correlating errors
+![Alt Text](configure-tracing-errors.gif)
