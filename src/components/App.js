@@ -99,7 +99,7 @@ class App extends Component {
   }
 
   checkout() {
-    this.myCodeIsPerfect();
+    // this.myCodeIsPerfect();
 
     /*
       POST request to /checkout endpoint.
@@ -119,7 +119,7 @@ class App extends Component {
 
     // perform request (set transctionID as header and throw error appropriately)
     request.post({
-        url: "http://localhost:3001/checkout",
+        url: "http://localhost:8080/checkout",
         json: order,
         headers: {
           "X-Session-ID": this.sessionId,
@@ -132,7 +132,7 @@ class App extends Component {
         if (response.statusCode === 200) {
           this.setState({ success: true });
         } else {
-          throw new Error(response.statusCode + " - " + response.statusMessage);
+          throw new Error(response.statusCode + " - " + response.statusMessage || response.body);
         }
       }
     );
