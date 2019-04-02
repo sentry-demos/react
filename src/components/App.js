@@ -99,7 +99,17 @@ class App extends Component {
   }
 
   checkout() {
-    this.myCodeIsPerfect();
+    console.log("1 checkout()")
+
+    try {
+      this.myCodeIsMISSING();
+    } catch (err) {
+      // doesn't halt app execution
+      console.log('caught', err)
+      Sentry.captureException(err)
+
+      // throw new Error()...halts app execution
+    }
 
     /*
       POST request to /checkout endpoint.
@@ -127,7 +137,9 @@ class App extends Component {
         }
       }, (error, response) => {
         if (error) {
-          throw error;
+          console.log('throw response', response)
+          throw response; 
+          // error // Network response object, Does Not have a StackTrace - hence don't see js line of code in Sentry
         }
         if (response.statusCode === 200) {
           this.setState({ success: true });
