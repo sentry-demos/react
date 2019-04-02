@@ -137,14 +137,13 @@ class App extends Component {
         }
       }, (error, response) => {
         if (error) {
-          console.log('throw response', response)
-          throw response; 
-          // error // Network response object, Does Not have a StackTrace - hence don't see js line of code in Sentry
+          console.log('throw error', error)
+          throw error; // Network response object, Does Not have a StackTrace - hence don't see js line of code in Sentry 
         }
         if (response.statusCode === 200) {
           this.setState({ success: true });
         } else {
-          throw new Error(response.statusCode + " - " + response.statusMessage);
+          throw new Error(response.statusCode + " - " + response.statusMessage); // ERror obj has a stack trace foer itself
         }
       }
     );
