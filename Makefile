@@ -1,9 +1,9 @@
 # Must have `sentry-cli` installed globally
 # Following variable must be passed in
-#  SENTRY_AUTH_TOKEN
+SENTRY_AUTH_TOKEN=7346c016185943a5a3ae0ff2e057c963402bd302d33647c9862ab87112b5d3fc
 
 SENTRY_ORG=testorg-az
-SENTRY_PROJECT=frontend-react
+SENTRY_PROJECT=will-frontend-react
 VERSION=`sentry-cli releases propose-version`
 PREFIX=static/js
 
