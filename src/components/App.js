@@ -99,17 +99,22 @@ class App extends Component {
   }
 
   checkout() {
-    console.log("1 checkout()")
+    console.log("ONE checkout()")
 
     try {
-      this.myCodeIsMISSING();
+      this.myCodeIsSURELYMISSING();
+
+      // also ignored because its in a try-block
+      // throw new Error('thrown in try....')
     } catch (err) {
       // doesn't halt app execution, Fetch Failed still happens
-      // console.log('caught', err)
-      // Sentry.captureException(err)
+      console.log('Sentry.captureException(err)')
+      Sentry.captureException(err)
 
-      console.log('throw new Error()')
-      throw new Error(err) // halts app execution, Fetch Fail should not happen
+      // Sentry.captureException('I WAS THROWN') // <unknown>
+
+      //console.log('throw new Error()')
+      throw err // halts app execution, Fetch Fail should not happen
     }
 
     /*
@@ -122,32 +127,36 @@ class App extends Component {
       cart: this.state.cart
     };
 
+    console.log("POST REQUEST...")
     // generate unique transactionId and set as Sentry tag
-    const transactionId = getUniqueId();
-    Sentry.configureScope(scope => {
-      scope.setTag("transaction_id", transactionId);
-    });
+    // const transactionId = getUniqueId();
+    // Sentry.configureScope(scope => {
+    //   scope.setTag("transaction_id", transactionId);
+    // });
+    // return
+    // // perform request (set transctionID as header and throw error appropriately)
+    // request.post({
+    //     url: "http://localhost:3001/checkout",
+    //     json: order,
+    //     headers: {
+    //       "X-Session-ID": this.sessionId,
+    //       "X-Transaction-ID": transactionId
+    //     }
+    //   }, (error, response) => {
+    //     if (error) {
+    //       console.log('throw error', error)
+    //       throw error; // Network response object, Does Not have a StackTrace - hence don't see js line of code in Sentry 
+    //     }
+    //     if (response.statusCode === 200) {
+    //       this.setState({ success: true });
+    //     } else {
+    //       throw new Error(response.statusCode + " - " + response.statusMessage); // ERror obj has a stack trace foer itself
+    //     }
+    //   }
+    // );
 
-    // perform request (set transctionID as header and throw error appropriately)
-    request.post({
-        url: "http://localhost:3001/checkout",
-        json: order,
-        headers: {
-          "X-Session-ID": this.sessionId,
-          "X-Transaction-ID": transactionId
-        }
-      }, (error, response) => {
-        if (error) {
-          console.log('throw error', error)
-          throw error; // Network response object, Does Not have a StackTrace - hence don't see js line of code in Sentry 
-        }
-        if (response.statusCode === 200) {
-          this.setState({ success: true });
-        } else {
-          throw new Error(response.statusCode + " - " + response.statusMessage); // ERror obj has a stack trace foer itself
-        }
-      }
-    );
+    // throw new Error() is for when deciding its an error.
+    // if you're in a catch-block then can throw error, because its already decided its in a catch block
   }
 
   render() {
