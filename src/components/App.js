@@ -104,11 +104,12 @@ class App extends Component {
     try {
       this.myCodeIsMISSING();
     } catch (err) {
-      // doesn't halt app execution
-      console.log('caught', err)
-      Sentry.captureException(err)
+      // doesn't halt app execution, Fetch Failed still happens
+      // console.log('caught', err)
+      // Sentry.captureException(err)
 
-      // throw new Error()...halts app execution
+      console.log('throw new Error()')
+      throw new Error(err) // halts app execution, Fetch Fail should not happen
     }
 
     /*
