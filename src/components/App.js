@@ -5,6 +5,7 @@ import "./App.css";
 import wrenchImg from "../assets/wrench.png";
 import nailsImg from "../assets/nails.png";
 import hammerImg from "../assets/hammer.png";
+import { type } from "os";
 
 const request = require('request');
 
@@ -97,12 +98,13 @@ class App extends Component {
       level: 'info'
     });
   }
-
+  // 'throw error' is in a catch block so already an error type, don't need Error() constructor
   checkout() {
     console.log("ONE checkout()")
 
     try {
-      this.myCodeIsSURELYMISSING();
+      // doesn't send event, rather the err caught in the catch is what triggers event send
+      this.myCodeIsntThere();
 
       // also ignored because its in a try-block
       // throw new Error('thrown in try....')
@@ -117,6 +119,8 @@ class App extends Component {
       throw err // halts app execution, Fetch Fail should not happen
     }
 
+    // console.log("i may or may not log depending on if Sentry.captureException was used or not, as well as an error being thrown in the catch block")
+
     /*
       POST request to /checkout endpoint.
         - Custom header with transactionId for transaction tracing
@@ -127,7 +131,7 @@ class App extends Component {
       cart: this.state.cart
     };
 
-    console.log("POST REQUEST...")
+    console.log("END checkout()")
     // generate unique transactionId and set as Sentry tag
     // const transactionId = getUniqueId();
     // Sentry.configureScope(scope => {
