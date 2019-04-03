@@ -32,14 +32,13 @@
       release: "%REACT_APP_RELEASE%",
       environment: "prod",
       beforeSend(event, hint) {
-        console.log('beforeSend...')
-        // Check if it is an exception, if so, show the report dialog
+        console.log('beforeSend...', event, hint)
+
+        // Check if it is an exception
         if (event.exception) {
           // Sentry.showReportDialog(); // opens the report dialog...
           
-          console.log(`return null to test it doesnt send`)
-          return null
-
+          // return null // causes Event to Not Send
 
           // do a return 'null' to make sure its ignored...
           // ref docs for other use cases, things to try, look for, base logic off of

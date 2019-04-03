@@ -115,7 +115,7 @@ class App extends Component {
 
       //throw err // stops app execution
 
-      // Sentry.captureException('I WAS THROWN') // shows in Sentry as '<unknown>' because no err object used
+      // Sentry.captureException('I WAS THROWN') // shows in Sentry as '<unknown>' because no err object used // fingerprint is ['I WAS THROWN'] and event has mechanism but no stacktrace, stacktrace comes from err object
 
     }
 
