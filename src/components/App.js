@@ -98,25 +98,25 @@ class App extends Component {
       level: 'info'
     });
   }
-  // 'throw error' is in a catch block so already an error type, don't need Error() constructor
+  // 'throw error' is in a catch block so already an error type, don't need to use  new Error() constructor
   checkout() {
     console.log("ONE checkout()")
 
     try {
-      // doesn't send event, rather the err caught in the catch is what triggers event send
-      this.myCodeIsntThere();
+      // this errors but doesn't Send the Event, because this try-block won't propogate an error.
+      // rather the err caught in the catch is where you can trigger a Send Event
+      this.codeThatFails();
 
-      // also ignored because its in a try-block
-      // throw new Error('thrown in try....')
+      // this is also ignored because its in a try-block
+      // throw new Error({})
     } catch (err) {
-      // doesn't halt app execution, Fetch Failed still happens
-      console.log('Sentry.captureException(err)')
+      // doesn't stop app execution. graceful handling
       Sentry.captureException(err)
 
-      // Sentry.captureException('I WAS THROWN') // <unknown>
+      //throw err // stops app execution
 
-      //console.log('throw new Error()')
-      throw err // halts app execution, Fetch Fail should not happen
+      // Sentry.captureException('I WAS THROWN') // shows in Sentry as '<unknown>' because no err object used
+
     }
 
     // console.log("i may or may not log depending on if Sentry.captureException was used or not, as well as an error being thrown in the catch block")
