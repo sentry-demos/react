@@ -31,8 +31,8 @@
       dsn: 'https://2f2f750efd074d6e8a1c3337c2b4488a@sentry.io/1428657',
       release: "%REACT_APP_RELEASE%",
       environment: "prod",
-      beforeBreadcrumb(event, hint) {
-        console.log('beforeBreadcrumb...', event, hint)
+      beforeBreadcrumb(breadcrumb, hint) {
+        console.log('beforeBreadcrumb...', breadcrumb, hint)
         return breadcrumb // try returning null, or nothing, see if it omits the breadcrumb altogether
       },
       beforeSend(event, hint) {

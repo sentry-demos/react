@@ -105,7 +105,7 @@ class App extends Component {
     try {
       // this errors but doesn't Send the Event, because this try-block won't propogate an error.
       // rather the err caught in the catch is where you can trigger a Send Event
-      this.codeThatFails();
+      this.codeThatDoesntBread();
 
       // this is also ignored because its in a try-block
       // throw new Error({})
