@@ -53,7 +53,6 @@ class App extends Component {
     this.sessionId = getUniqueId();
     Sentry.configureScope(scope => {
       scope.setTag("session_id", this.sessionId);
-      scope.setTag("password", "RIGHT HERE BABY")
     });
   }
 
@@ -77,6 +76,7 @@ class App extends Component {
     this.setState({ cart, success: false });
 
     Sentry.configureScope(scope => {
+      cart.password = "PW"
       scope.setExtra('cart', JSON.stringify(cart));
     });
     Sentry.addBreadcrumb({
