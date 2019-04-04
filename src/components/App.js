@@ -53,6 +53,7 @@ class App extends Component {
     this.sessionId = getUniqueId();
     Sentry.configureScope(scope => {
       scope.setTag("session_id", this.sessionId);
+      scope.setTag("password", "RIGHT HERE BABY")
     });
   }
 
@@ -100,7 +101,7 @@ class App extends Component {
   }
   // 'throw error' is in a catch block so already an error type, don't need to use  new Error() constructor
   checkout() {
-    console.log("ONE checkout()")
+    console.log("1 checkout()")
 
     try {
       // this errors but doesn't Send the Event, because this try-block won't propogate an error.
@@ -109,7 +110,7 @@ class App extends Component {
 
       // this is also ignored because its in a try-block
       // throw new Error({})
-    } catch (err) {
+    } catch (err) { // catch block allows you to execute code before 'throw err' in catch block halts program execution. if no try-catch, then the this.codeDoesntExist() would throw err AND halt execution, without giving room to execute code first before the throw err
       // doesn't stop app execution. graceful handling
       Sentry.captureException(err)
 
@@ -131,7 +132,7 @@ class App extends Component {
       cart: this.state.cart
     };
 
-    console.log("END checkout()")
+    console.log("FINAL checkout()")
     // generate unique transactionId and set as Sentry tag
     // const transactionId = getUniqueId();
     // Sentry.configureScope(scope => {
