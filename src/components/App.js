@@ -75,7 +75,7 @@ class App extends Component {
     console.log(item);
     this.setState({ cart, success: false });
 
-    Sentry.captureMessage('Something went wrong');
+    // Sentry.captureMessage('Something went wrong');
 
     Sentry.configureScope(scope => {
       scope.setExtra('cart', JSON.stringify(cart));
