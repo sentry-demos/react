@@ -68,14 +68,12 @@ class App extends Component {
       scope.setTag("customerType", "medium-plan"); // custom-tag
     });
   }
-
+  // Sentry.captureMessage('Something went wrong');
   buyItem(item) {
     const cart = [].concat(this.state.cart);
     cart.push(item);
     console.log(item);
     this.setState({ cart, success: false });
-
-    // Sentry.captureMessage('Something went wrong');
 
     Sentry.configureScope(scope => {
       scope.setExtra('cart', JSON.stringify(cart));
