@@ -74,7 +74,7 @@ class App extends Component {
     cart.push(item);
     console.log(item);
     this.setState({ cart, success: false });
-
+    iWantString("string")
     Sentry.configureScope(scope => {
       scope.setExtra('cart', JSON.stringify(cart));
     });
@@ -83,6 +83,16 @@ class App extends Component {
       message: 'User added ' + item.name + ' to cart',
       level: 'info'
     });
+  }
+
+  iWantString(input) {
+    var type = typeof input
+    if (typeof input === 'string') {
+      console.log('iWantString SUCCESS')
+    } else {
+      console.log('iWantString ERROR', type)
+      throw new Error('wrong input type supplied')
+    }
   }
 
   resetCart(event) {
