@@ -76,7 +76,6 @@ class App extends Component {
     this.setState({ cart, success: false });
 
     Sentry.configureScope(scope => {
-      cart.push({ "password": "PW" });
       scope.setExtra('cart', JSON.stringify(cart));
     });
     Sentry.addBreadcrumb({
@@ -204,6 +203,8 @@ class App extends Component {
             {this.state.cart.length ? (
               <div>
                 {Object.keys(cartDisplay).map(id => {
+                  console.log('cartDisplay', cartDisplay)
+                  console.log('THIS.STORE', this.store)
                   const { name, price } = this.store.find(i => i.id === id);
                   const qty = cartDisplay[id];
                   return (
