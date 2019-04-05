@@ -75,6 +75,8 @@ class App extends Component {
     console.log(item);
     this.setState({ cart, success: false });
 
+    Sentry.captureMessage('Something went wrong');
+
     Sentry.configureScope(scope => {
       scope.setExtra('cart', JSON.stringify(cart));
     });
@@ -105,7 +107,7 @@ class App extends Component {
     try {
       // this errors but doesn't Send the Event, because this try-block won't propogate an error.
       // rather the err caught in the catch is where you can trigger a Send Event
-      this.codeThatDoesntBread();
+      this.codeProblem();
 
       // this is also ignored because its in a try-block
       // throw new Error({})
@@ -137,7 +139,7 @@ class App extends Component {
     // Sentry.configureScope(scope => {
     //   scope.setTag("transaction_id", transactionId);
     // });
-    // return
+
     // // perform request (set transctionID as header and throw error appropriately)
     // request.post({
     //     url: "http://localhost:3001/checkout",
@@ -203,8 +205,6 @@ class App extends Component {
             {this.state.cart.length ? (
               <div>
                 {Object.keys(cartDisplay).map(id => {
-                  console.log('cartDisplay', cartDisplay)
-                  console.log('THIS.STORE', this.store)
                   const { name, price } = this.store.find(i => i.id === id);
                   const qty = cartDisplay[id];
                   return (

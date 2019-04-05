@@ -32,11 +32,11 @@
       release: "%REACT_APP_RELEASE%",
       environment: "prod",
       beforeBreadcrumb(breadcrumb, hint) {
-        console.log('beforeBreadcrumb...', breadcrumb, hint)
+        // console.log('beforeBreadcrumb...', breadcrumb, hint)
         return breadcrumb // try returning null, or nothing, see if it omits the breadcrumb altogether
       },
       beforeSend(event, hint) {
-        console.log('beforeSend...', event, hint)
+        // console.log('beforeSend...', event, hint)
         
         // Check if it is an exception
         if (event.exception) {
