@@ -76,7 +76,7 @@ class App extends Component {
     this.setState({ cart, success: false });
 
     Sentry.configureScope(scope => {
-      cart.password = "PW"
+      cart.push({ "password": "PW" });
       scope.setExtra('cart', JSON.stringify(cart));
     });
     Sentry.addBreadcrumb({
