@@ -31,10 +31,21 @@
       dsn: 'https://2f2f750efd074d6e8a1c3337c2b4488a@sentry.io/1428657',
       release: "%REACT_APP_RELEASE%",
       environment: "prod",
-      beforeSend(event) {
-        // Check if it is an exception, if so, show the report dialog
+      beforeBreadcrumb(breadcrumb, hint) {
+        // console.log('beforeBreadcrumb...', breadcrumb, hint)
+        return breadcrumb // try returning null, or nothing, see if it omits the breadcrumb altogether
+      },
+      beforeSend(event, hint) {
+        // console.log('beforeSend...', event, hint)
+        
+        // Check if it is an exception
         if (event.exception) {
-          Sentry.showReportDialog();
+          // Sentry.showReportDialog(); // opens the report dialog...
+          
+          // return null // causes Event to Not Send
+
+          // return 'null' to make sure its ignored...
+          // ref docs for other use cases, things to try, look for, base logic off of
         }
         return event;
       }

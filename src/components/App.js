@@ -5,6 +5,7 @@ import "./App.css";
 import wrenchImg from "../assets/wrench.png";
 import nailsImg from "../assets/nails.png";
 import hammerImg from "../assets/hammer.png";
+import { type } from "os";
 
 const request = require('request');
 
@@ -67,13 +68,13 @@ class App extends Component {
       scope.setTag("customerType", "medium-plan"); // custom-tag
     });
   }
-
+  // Sentry.captureMessage('Something went wrong');
   buyItem(item) {
     const cart = [].concat(this.state.cart);
     cart.push(item);
     console.log(item);
     this.setState({ cart, success: false });
-
+    iWantString("string")
     Sentry.configureScope(scope => {
       scope.setExtra('cart', JSON.stringify(cart));
     });
@@ -82,6 +83,16 @@ class App extends Component {
       message: 'User added ' + item.name + ' to cart',
       level: 'info'
     });
+  }
+
+  iWantString(input) {
+    var type = typeof input
+    if (typeof input === 'string') {
+      console.log('iWantString SUCCESS')
+    } else {
+      console.log('iWantString ERROR', type)
+      throw new Error('wrong input type supplied')
+    }
   }
 
   resetCart(event) {
@@ -97,25 +108,28 @@ class App extends Component {
       level: 'info'
     });
   }
-
+  // 'throw error' is in a catch block so already an error type, don't need to use  new Error() constructor
   checkout() {
-    console.log("ONE checkout()")
+    console.log("1 checkout()")
 
     try {
-      this.myCodeIsSURELYMISSING();
+      // this errors but doesn't Send the Event, because this try-block won't propogate an error.
+      // rather the err caught in the catch is where you can trigger a Send Event
+      // this.codeProblem();
 
-      // also ignored because its in a try-block
-      // throw new Error('thrown in try....')
-    } catch (err) {
-      // doesn't halt app execution, Fetch Failed still happens
-      console.log('Sentry.captureException(err)')
+      // this is also ignored because its in a try-block
+      // throw new Error({})
+    } catch (err) { // catch block allows you to execute code before 'throw err' in catch block halts program execution. if no try-catch, then the this.codeDoesntExist() would throw err AND halt execution, without giving room to execute code first before the throw err
+      // doesn't stop app execution. graceful handling
       Sentry.captureException(err)
 
-      // Sentry.captureException('I WAS THROWN') // <unknown>
+      //throw err // stops app execution
 
-      //console.log('throw new Error()')
-      throw err // halts app execution, Fetch Fail should not happen
+      // Sentry.captureException('I WAS THROWN') // shows in Sentry as '<unknown>' because no err object used // fingerprint is ['I WAS THROWN'] and event has mechanism but no stacktrace, stacktrace comes from err object
+
     }
+
+    // console.log("i may or may not log depending on if Sentry.captureException was used or not, as well as an error being thrown in the catch block")
 
     /*
       POST request to /checkout endpoint.
@@ -127,13 +141,13 @@ class App extends Component {
       cart: this.state.cart
     };
 
-    console.log("POST REQUEST...")
+    console.log("FINAL checkout()")
     // generate unique transactionId and set as Sentry tag
     // const transactionId = getUniqueId();
     // Sentry.configureScope(scope => {
     //   scope.setTag("transaction_id", transactionId);
     // });
-    // return
+
     // // perform request (set transctionID as header and throw error appropriately)
     // request.post({
     //     url: "http://localhost:3001/checkout",
