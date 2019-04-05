@@ -7,6 +7,8 @@ SENTRY_PROJECT=will-frontend-react
 VERSION=`sentry-cli releases propose-version`
 PREFIX=static/js
 
+#echo $(VERSION)
+
 setup_release: create_release associate_commits upload_sourcemaps
 
 create_release:
