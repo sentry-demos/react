@@ -99,17 +99,7 @@ class App extends Component {
   }
 
   checkout() {
-    console.log("1 checkout()")
-
-    try {
-      this.myCodeIsMISSING();
-    } catch (err) {
-      // doesn't halt app execution
-      console.log('caught', err)
-      Sentry.captureException(err)
-
-      // throw new Error()...halts app execution
-    }
+    this.codeIsNotPerfect();
 
     /*
       POST request to /checkout endpoint.
