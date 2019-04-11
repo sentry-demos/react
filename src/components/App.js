@@ -62,12 +62,14 @@ class App extends Component {
       this.setState({ hasError: true, success: false });
       defaultError(error);
     };
+
     // Add context to error/event
     Sentry.configureScope(scope => {
       scope.setUser({ email: this.email }); // attach user/email context
-      scope.setTag("customerType", "medium-plan"); // custom-tag
+      scope.setTag("customerType", "medium-plan"); // custom tag
     });
   }
+
   // Sentry.captureMessage('Something went wrong');
   addToCart(item) {
     const cart = [].concat(this.state.cart);
