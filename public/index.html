@@ -22,7 +22,7 @@
     -->
   <title>Sentry Demo</title>
 
-  <!-- Import SDK -->
+  <!-- Import Sentry SDK -->
   <script src="https://browser.sentry-cdn.com/4.0.5/bundle.min.js" crossorigin="anonymous"></script>
 
   <!-- Configure SDK -->
@@ -32,21 +32,20 @@
       release: "%REACT_APP_RELEASE%",
       environment: "prod",
       beforeBreadcrumb(breadcrumb, hint) {
-        // console.log('beforeBreadcrumb...', breadcrumb, hint)
-        return breadcrumb // try returning null, or nothing, see if it omits the breadcrumb altogether
+        // run something before logging a breadcrumb
+        return breadcrumb
       },
       beforeSend(event, hint) {
-        // console.log('beforeSend...', event, hint)
-        
-        // Check if it is an exception
-        if (event.exception) {
-          // Sentry.showReportDialog(); // opens the report dialog...
-          
-          // return null // causes Event to Not Send
 
-          // return 'null' to make sure its ignored...
-          // ref docs for other use cases, things to try, look for, base logic off of
+        if (event.exception) {
+          // Your React/Angular dialog here
+          Sentry.showReportDialog();
+          
         }
+
+        // return null if you want to ignore the event
+        // if (someCondition) return null
+
         return event;
       }
     });
