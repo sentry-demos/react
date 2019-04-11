@@ -70,7 +70,6 @@ class App extends Component {
     });
   }
 
-  // Sentry.captureMessage('Something went wrong');
   addToCart(item) {
     const cart = [].concat(this.state.cart);
     cart.push(item);
@@ -132,6 +131,8 @@ class App extends Component {
       scope.setTag("transaction_id", transactionId);
     });
 
+    iDontExist()
+
     // set transactionId
     request.post({
         url: "http://localhost:3001/checkout",
@@ -142,13 +143,12 @@ class App extends Component {
         }
       }, (error, response) => {
         if (error) {
-          console.log('throw error', error)
-          throw error; // Network response object, Does Not have a StackTrace - hence don't see js line of code in Sentry 
+          throw error;
         }
         if (response.statusCode === 200) {
           this.setState({ success: true });
         } else {
-          throw new Error(response.statusCode + " - " + response.statusMessage); // ERror obj has a stack trace foer itself
+          throw new Error(response.statusCode + " - " + response.statusMessage);
         }
       }
     );
