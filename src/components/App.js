@@ -45,7 +45,7 @@ class App extends Component {
         img: hammerImg
       }
     ];
-    this.buyItem = this.buyItem.bind(this);
+    this.addToCart = this.addToCart.bind(this);
     this.checkout = this.checkout.bind(this);
     this.resetCart = this.resetCart.bind(this);
 
@@ -62,24 +62,25 @@ class App extends Component {
       this.setState({ hasError: true, success: false });
       defaultError(error);
     };
+
     // Add context to error/event
     Sentry.configureScope(scope => {
       scope.setUser({ email: this.email }); // attach user/email context
-      scope.setTag("customerType", "medium-plan"); // custom-tag
+      scope.setTag("customerType", "medium-plan"); // custom tag
     });
   }
-  // Sentry.captureMessage('Something went wrong');
-  buyItem(item) {
+
+  addToCart(item) {
     const cart = [].concat(this.state.cart);
     cart.push(item);
-    console.log(item);
+
     this.setState({ cart, success: false });
-    iWantString("string")
+
     Sentry.configureScope(scope => {
       scope.setExtra('cart', JSON.stringify(cart));
     });
     Sentry.addBreadcrumb({
-      category: 'cart',
+      category: 'cart component',
       message: 'User added ' + item.name + ' to cart',
       level: 'info'
     });
@@ -108,28 +109,11 @@ class App extends Component {
       level: 'info'
     });
   }
+  
   // 'throw error' is in a catch block so already an error type, don't need to use  new Error() constructor
+  // throw new Error() is for when deciding its an error.
+  // if you're in a catch-block then can throw error, because its already decided its in a catch block (which is gracefully handling, not interrupting via throw Error or throw 'error')
   checkout() {
-    console.log("1 checkout()")
-
-    try {
-      // this errors but doesn't Send the Event, because this try-block won't propogate an error.
-      // rather the err caught in the catch is where you can trigger a Send Event
-      // this.codeProblem();
-
-      // this is also ignored because its in a try-block
-      // throw new Error({})
-    } catch (err) { // catch block allows you to execute code before 'throw err' in catch block halts program execution. if no try-catch, then the this.codeDoesntExist() would throw err AND halt execution, without giving room to execute code first before the throw err
-      // doesn't stop app execution. graceful handling
-      Sentry.captureException(err)
-
-      //throw err // stops app execution
-
-      // Sentry.captureException('I WAS THROWN') // shows in Sentry as '<unknown>' because no err object used // fingerprint is ['I WAS THROWN'] and event has mechanism but no stacktrace, stacktrace comes from err object
-
-    }
-
-    // console.log("i may or may not log depending on if Sentry.captureException was used or not, as well as an error being thrown in the catch block")
 
     /*
       POST request to /checkout endpoint.
@@ -141,36 +125,34 @@ class App extends Component {
       cart: this.state.cart
     };
 
-    console.log("FINAL checkout()")
     // generate unique transactionId and set as Sentry tag
-    // const transactionId = getUniqueId();
-    // Sentry.configureScope(scope => {
-    //   scope.setTag("transaction_id", transactionId);
-    // });
+    const transactionId = getUniqueId();
+    Sentry.configureScope(scope => {
+      scope.setTag("transaction_id", transactionId);
+    });
 
-    // // perform request (set transctionID as header and throw error appropriately)
-    // request.post({
-    //     url: "http://localhost:3001/checkout",
-    //     json: order,
-    //     headers: {
-    //       "X-Session-ID": this.sessionId,
-    //       "X-Transaction-ID": transactionId
-    //     }
-    //   }, (error, response) => {
-    //     if (error) {
-    //       console.log('throw error', error)
-    //       throw error; // Network response object, Does Not have a StackTrace - hence don't see js line of code in Sentry 
-    //     }
-    //     if (response.statusCode === 200) {
-    //       this.setState({ success: true });
-    //     } else {
-    //       throw new Error(response.statusCode + " - " + response.statusMessage); // ERror obj has a stack trace foer itself
-    //     }
-    //   }
-    // );
+    iDontExist()
 
-    // throw new Error() is for when deciding its an error.
-    // if you're in a catch-block then can throw error, because its already decided its in a catch block
+    // set transactionId
+    request.post({
+        url: "http://localhost:3001/checkout",
+        json: order,
+        headers: {
+          "X-Session-ID": this.sessionId,
+          "X-Transaction-ID": transactionId
+        }
+      }, (error, response) => {
+        if (error) {
+          throw error;
+        }
+        if (response.statusCode === 200) {
+          this.setState({ success: true });
+        } else {
+          throw new Error(response.statusCode + " - " + response.statusMessage);
+        }
+      }
+    );
+
   }
 
   render() {
@@ -198,7 +180,7 @@ class App extends Component {
                   <p>{name}</p>
                   <div className="button-wrapper">
                     <strong>${monify(price)}</strong>
-                    <button onClick={() => this.buyItem(item)}>Buy!</button>
+                    <button onClick={() => this.addToCart(item)}>Buy!</button>
                   </div>
                 </div>
               );
