@@ -22,7 +22,7 @@
     -->
   <title>Sentry Demo</title>
 
-  <!-- Import SDK -->
+  <!-- Import Sentry SDK -->
   <script src="https://browser.sentry-cdn.com/4.0.5/bundle.min.js" crossorigin="anonymous"></script>
 
   <!-- Configure SDK -->
@@ -31,11 +31,21 @@
       dsn: 'https://2f2f750efd074d6e8a1c3337c2b4488a@sentry.io/1428657',
       release: "%REACT_APP_RELEASE%",
       environment: "prod",
-      beforeSend(event) {
-        // Check if it is an exception, if so, show the report dialog
+      beforeBreadcrumb(breadcrumb, hint) {
+        // run something before logging a breadcrumb
+        return breadcrumb
+      },
+      beforeSend(event, hint) {
+
         if (event.exception) {
+          // Your React/Angular dialog here
           Sentry.showReportDialog();
+          
         }
+
+        // return null if you want to ignore the event
+        // if (someCondition) return null
+
         return event;
       }
     });

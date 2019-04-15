@@ -5,6 +5,7 @@ import "./App.css";
 import wrenchImg from "../assets/wrench.png";
 import nailsImg from "../assets/nails.png";
 import hammerImg from "../assets/hammer.png";
+import { type } from "os";
 
 const request = require('request');
 
@@ -44,7 +45,7 @@ class App extends Component {
         img: hammerImg
       }
     ];
-    this.buyItem = this.buyItem.bind(this);
+    this.addToCart = this.addToCart.bind(this);
     this.checkout = this.checkout.bind(this);
     this.resetCart = this.resetCart.bind(this);
 
@@ -61,27 +62,38 @@ class App extends Component {
       this.setState({ hasError: true, success: false });
       defaultError(error);
     };
+
     // Add context to error/event
     Sentry.configureScope(scope => {
       scope.setUser({ email: this.email }); // attach user/email context
-      scope.setTag("customerType", "medium-plan"); // custom-tag
+      scope.setTag("customerType", "medium-plan"); // custom tag
     });
   }
 
-  buyItem(item) {
+  addToCart(item) {
     const cart = [].concat(this.state.cart);
     cart.push(item);
-    console.log(item);
+
     this.setState({ cart, success: false });
 
     Sentry.configureScope(scope => {
       scope.setExtra('cart', JSON.stringify(cart));
     });
     Sentry.addBreadcrumb({
-      category: 'cart',
+      category: 'cart component',
       message: 'User added ' + item.name + ' to cart',
       level: 'info'
     });
+  }
+
+  iWantString(input) {
+    var type = typeof input
+    if (typeof input === 'string') {
+      console.log('iWantString SUCCESS')
+    } else {
+      console.log('iWantString ERROR', type)
+      throw new Error('wrong input type supplied')
+    }
   }
 
   resetCart(event) {
@@ -97,9 +109,12 @@ class App extends Component {
       level: 'info'
     });
   }
-
+  
+  // 'throw error' is in a catch block so already an error type, don't need to use  new Error() constructor
+  // throw new Error() is for when deciding its an error.
+  // if you're in a catch-block then can throw error, because its already decided its in a catch block (which is gracefully handling, not interrupting via throw Error or throw 'error')
   checkout() {
-    this.codeIsNotPerfect();
+    // this.codeIsNotPerfect();
 
     /*
       POST request to /checkout endpoint.
@@ -117,19 +132,25 @@ class App extends Component {
       scope.setTag("transaction_id", transactionId);
     });
 
-    // perform request (set transctionID as header and throw error appropriately)
+    Sentry.configureScope(scope => {
+      scope.setExtra('inventory', JSON.stringify(this.store));
+    });
+
+    // this.iDontExist()
+
+    // set transactionId
     request.post({
         url: "http://localhost:3001/checkout",
         json: order,
         headers: {
           "X-Session-ID": this.sessionId,
-          "X-Transaction-ID": transactionId
+          "X-Transaction-ID": transactionId,
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
         }
       }, (error, response) => {
         if (error) {
-          console.log('throw response', response)
-          throw response; 
-          // error // Network response object, Does Not have a StackTrace - hence don't see js line of code in Sentry
+          throw error;
         }
         if (response.statusCode === 200) {
           this.setState({ success: true });
@@ -138,6 +159,7 @@ class App extends Component {
         }
       }
     );
+
   }
 
   render() {
@@ -165,7 +187,7 @@ class App extends Component {
                   <p>{name}</p>
                   <div className="button-wrapper">
                     <strong>${monify(price)}</strong>
-                    <button onClick={() => this.buyItem(item)}>Buy!</button>
+                    <button onClick={() => this.addToCart(item)}>Buy!</button>
                   </div>
                 </div>
               );
