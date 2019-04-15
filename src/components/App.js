@@ -131,7 +131,11 @@ class App extends Component {
       scope.setTag("transaction_id", transactionId);
     });
 
-    iDontExist()
+    Sentry.configureScope(scope => {
+      scope.setExtra('inventory', JSON.stringify(this.store));
+    });
+
+    // this.iDontExist()
 
     // set transactionId
     request.post({
@@ -139,7 +143,9 @@ class App extends Component {
         json: order,
         headers: {
           "X-Session-ID": this.sessionId,
-          "X-Transaction-ID": transactionId
+          "X-Transaction-ID": transactionId,
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
         }
       }, (error, response) => {
         if (error) {
