@@ -19,7 +19,7 @@ class App extends Component {
       cart: []
     };
 
-    // generate random email
+    // Generate random email
     this.email =
       Math.random()
         .toString(36)
@@ -49,7 +49,7 @@ class App extends Component {
     this.checkout = this.checkout.bind(this);
     this.resetCart = this.resetCart.bind(this);
 
-    // generate unique sessionId and set as Sentry tag
+    // Generate unique sessionId and set as Sentry tag
     this.sessionId = getUniqueId();
     Sentry.configureScope(scope => {
       scope.setTag("session_id", this.sessionId);
@@ -63,10 +63,8 @@ class App extends Component {
       defaultError(error);
     };
 
-    // Add context to error/event
     Sentry.configureScope(scope => {
-      scope.setUser({ email: this.email }); // attach user/email context
-      scope.setTag("customerType", "medium-plan"); // custom tag
+      scope.setTag("customerType", "medium-plan");
     });
   }
 
@@ -86,16 +84,6 @@ class App extends Component {
     });
   }
 
-  iWantString(input) {
-    var type = typeof input
-    if (typeof input === 'string') {
-      console.log('iWantString SUCCESS')
-    } else {
-      console.log('iWantString ERROR', type)
-      throw new Error('wrong input type supplied')
-    }
-  }
-
   resetCart(event) {
     event.preventDefault();
     this.setState({ cart: [], hasError: false, success: false });
@@ -109,23 +97,19 @@ class App extends Component {
       level: 'info'
     });
   }
-  
-  // 'throw error' is in a catch block so already an error type, don't need to use  new Error() constructor
-  // throw new Error() is for when deciding its an error.
-  // if you're in a catch-block then can throw error, because its already decided its in a catch block (which is gracefully handling, not interrupting via throw Error or throw 'error')
+
+  /*
+    POST request to /checkout endpoint.
+    - Custom header with transactionId for transaction tracing
+  */
   checkout() {
 
-    /*
-      POST request to /checkout endpoint.
-        - Custom header with transactionId for transaction tracing
-        - throw error if response !== 200
-    */
     const order = {
       email: this.email,
       cart: this.state.cart
     };
 
-    // generate unique transactionId and set as Sentry tag
+    // Generate unique transactionId and set as Sentry tag
     const transactionId = getUniqueId();
     Sentry.configureScope(scope => {
       scope.setTag("transaction_id", transactionId);
@@ -135,11 +119,10 @@ class App extends Component {
       scope.setExtra('inventory', JSON.stringify(this.store));
     });
 
-    // this.iDontExist()
+    this.functionUndefined()
 
-    // set transactionId
     request.post({
-        url: "http://localhost:3001/checkout",
+        url: "http://localhost:5001/checkout",
         json: order,
         headers: {
           "X-Session-ID": this.sessionId,
@@ -186,7 +169,7 @@ class App extends Component {
                   <p>{name}</p>
                   <div className="button-wrapper">
                     <strong>${monify(price)}</strong>
-                    <button onClick={() => this.addToCart(item)}>Buy!</button>
+                    <button onClick={() => this.addToCart(item)}>Add to Cart</button>
                   </div>
                 </div>
               );
