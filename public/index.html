@@ -31,22 +31,14 @@
       dsn: 'https://2f2f750efd074d6e8a1c3337c2b4488a@sentry.io/1428657',
       release: "%REACT_APP_RELEASE%",
       environment: "prod",
-      beforeBreadcrumb(breadcrumb, hint) {
-        // run something before logging a breadcrumb
-        return breadcrumb
-      },
       beforeSend(event, hint) {
-
         if (event.exception) {
-          // Your React/Angular dialog here
-          Sentry.showReportDialog();
-          
+          Sentry.showReportDialog(); 
         }
-
-        // return null if you want to ignore the event
-        // if (someCondition) return null
-
         return event;
+      },
+      beforeBreadcrumb(breadcrumb, hint) {
+        return breadcrumb
       }
     });
   </script>
