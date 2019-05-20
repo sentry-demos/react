@@ -120,7 +120,7 @@ class App extends Component {
       scope.setExtra('inventory', JSON.stringify(this.store));
     });
 
-    this.functionUndefined()
+    // this.functionUndefined()
 
     request.post({
         url: "http://localhost:5001/checkout",
