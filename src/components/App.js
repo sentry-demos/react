@@ -105,6 +105,8 @@ class App extends Component {
   */
   checkout() {
 
+    this.functionUndefined()
+
     const order = {
       email: this.email,
       cart: this.state.cart
@@ -119,8 +121,6 @@ class App extends Component {
     Sentry.configureScope(scope => {
       scope.setExtra('inventory', JSON.stringify(this.store));
     });
-
-    // this.functionUndefined()
 
     request.post({
         url: "http://localhost:5001/checkout",
