@@ -32,9 +32,6 @@
       release: "%REACT_APP_RELEASE%",
       environment: "prod",
       beforeSend(event, hint) {
-        if (event.exception) {
-          Sentry.showReportDialog(); 
-        }
         return event;
       },
       beforeBreadcrumb(breadcrumb, hint) {
@@ -64,3 +61,8 @@
 </body>
 
 </html>
+
+<!-- if (event.exception) {
+  Sentry.showReportDialog(); 
+}
+-->
