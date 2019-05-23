@@ -34,7 +34,8 @@
       release: "%REACT_APP_RELEASE%",
       environment: "prod",
       integrations: [
-        new Sentry.Integrations.Tracing()
+        // new Tracing()
+        new Sentry.Integrations.Tracing({ tracingOrigins: ['localhost', /^\//] } )
       ],
       beforeSend(event, hint) {
         return event;
