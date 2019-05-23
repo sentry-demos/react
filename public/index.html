@@ -35,7 +35,11 @@
       environment: "prod",
       integrations: [
         // new Tracing()
-        new Sentry.Integrations.Tracing({ tracingOrigins: ['localhost', /^\//] } )
+        // new Sentry.Integrations.Tracing({ tracingOrigins: ['localhost', /^\//] } )
+        // new Sentry.Integrations.Tracing({
+        //   tracingOrigins: ['localhost', 'sentry.io', /^\//],
+        //   autoStartOnDomReady: false,
+        // }),
       ],
       beforeSend(event, hint) {
         return event;
