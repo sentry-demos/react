@@ -5,7 +5,6 @@ import "./App.css";
 import wrenchImg from "../assets/wrench.png";
 import nailsImg from "../assets/nails.png";
 import hammerImg from "../assets/hammer.png";
-import { type } from "os";
 
 const request = require('request');
 
@@ -113,10 +112,10 @@ class App extends Component {
     };
 
     // Generate unique transactionId and set as Sentry tag
-    const transactionId = getUniqueId();
-    Sentry.configureScope(scope => {
-      scope.setTag("transaction_id", transactionId);
-    });
+    // const transactionId = getUniqueId();
+    // Sentry.configureScope(scope => {
+    //   scope.setTag("transaction_id", transactionId);
+    // });
 
     Sentry.configureScope(scope => {
       scope.setExtra('inventory', JSON.stringify(this.store));
@@ -127,7 +126,7 @@ class App extends Component {
         json: order,
         headers: {
           "X-Session-ID": this.sessionId,
-          "X-Transaction-ID": transactionId,
+          // "X-Transaction-ID": transactionId,
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
         }

@@ -24,17 +24,15 @@
 
   <!-- Import Sentry SDK -->
   <script src="https://browser.sentry-cdn.com/4.0.5/bundle.min.js" crossorigin="anonymous"></script>
+  <script src="https://browser.sentry-cdn.com/5.3.0/tracing.min.js" crossorigin="anonymous"></script>
+  <!-- Tracing docs https://forum.sentry.io/t/sentry-tracing/6681 -->
 
-  <!-- Configure SDK -->
   <script>
-    const integrations = require('@sentry/integrations');
-
+    // Configure SDK
     Sentry.init({
       dsn: 'https://2f2f750efd074d6e8a1c3337c2b4488a@sentry.io/1428657',
       release: "%REACT_APP_RELEASE%",
       environment: "prod",
-      // https://forum.sentry.io/t/sentry-tracing/6681
-      // import * as Integrations from '@sentry/integrations'; ?
       integrations: [
         new Tracing()
       ],
