@@ -34,6 +34,9 @@ $ npm run deploy
 
 ![Alt Text](configure-launch-react-demo.gif)
 
+## Tracing
+
+
 // TODO need remove this? or rather, record a new one!
 ## Tracing and correlating errors
 ![Alt Text](configure-tracing-errors.gif)
