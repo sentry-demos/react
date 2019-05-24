@@ -103,7 +103,6 @@ class App extends Component {
     - The sentry sdk's in index.html now set the 'trace' Id's as tags, so no longer need to set them in headers here
   */
   checkout() {
-    // this.codeIsNotPerfect();
 
     this.functionUndefined()
 
