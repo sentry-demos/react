@@ -25,7 +25,7 @@
   <!-- Import Sentry SDK -->
   <script src="https://browser.sentry-cdn.com/5.3.1/bundle.min.js" crossorigin="anonymous"></script>
   <script src="https://browser.sentry-cdn.com/5.3.1/tracing.min.js" crossorigin="anonymous"></script>
-  <!-- Tracing docs https://forum.sentry.io/t/sentry-tracing/6681 -->
+  <!-- Tracing https://forum.sentry.io/t/sentry-tracing/6681 -->
 
   <script>
     // Configure SDK
@@ -35,12 +35,6 @@
       environment: "prod",
       integrations: [
         new Sentry.Integrations.Tracing({ tracingOrigins: ['localhost', /^\//] } )
-        // PR Notes...
-        // new Tracing() // FAILS, for cdn
-        // new Sentry.Integrations.Tracing({
-        //   tracingOrigins: ['localhost', 'sentry.io', /^\//],
-        //   autoStartOnDomReady: false,
-        // }),
       ],
       beforeSend(event, hint) {
         return event;

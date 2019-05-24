@@ -1,6 +1,6 @@
 # sentry-demos/react
 
-## Goal/Summary:
+## Summary:
 Show how Sentry works
 - Import/Integrate
 - Configuration
@@ -34,13 +34,11 @@ $ npm run deploy
 
 ![Alt Text](configure-launch-react-demo.gif)
 
-## Tracing
-
-
-// TODO need remove this? or rather, record a new one!
-## Tracing and correlating errors
-![Alt Text](configure-tracing-errors.gif)
-
 ## Changelog
-// TODO?
-- undid old technique of tracing...
+05/24/19 - removed `scope.setTag("transaction_id", txId)` because `bundle.min.js`, `tracing.min.js` enable the `new Tracing()` feature  
+npm module `new Tracing()`  
+cdn `new Sentry.Integrations.Tracing({ tracingOrigins: ['localhost', /^\//] } )`
+
+## Tracing
+05/24/19 the following GIF is now outdated as tracing.min.js replaces all the setup shown in the GIF.
+![Alt Text](configure-tracing-errors.gif)

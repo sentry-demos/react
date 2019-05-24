@@ -100,22 +100,16 @@ class App extends Component {
 
   /*
     POST request to /checkout endpoint.
-    - Custom header with transactionId for transaction tracing
+    - The sentry sdk's in index.html now set the 'trace' Id's as tags, so no longer need to set them in headers here
   */
   checkout() {
 
-    // this.functionUndefined()
+    this.functionUndefined()
 
     const order = {
       email: this.email,
       cart: this.state.cart
     };
-
-    // Generate unique transactionId and set as Sentry tag
-    // const transactionId = getUniqueId();
-    // Sentry.configureScope(scope => {
-    //   scope.setTag("transaction_id", transactionId);
-    // });
 
     Sentry.configureScope(scope => {
       scope.setExtra('inventory', JSON.stringify(this.store));
@@ -126,7 +120,6 @@ class App extends Component {
         json: order,
         headers: {
           "X-Session-ID": this.sessionId,
-          // "X-Transaction-ID": transactionId,
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
         }
