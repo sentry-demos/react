@@ -1,6 +1,6 @@
 # sentry-demos/react
 
-## Goal/Summary:
+## Summary:
 Show how Sentry works
 - Import/Integrate
 - Configuration
@@ -26,12 +26,19 @@ token would be this: `export SENTRY_AUTH_TOKEN=1010101011010101`
 6. Enter your Sentry organization slug in the `SENTRY_ORG` line of your Makefile,
 then add the name of `SENTRY_PROJECT`
 
+## Run
 ```
 $ npm run deploy
 ```
-7. Go to http://localhost:5000 in your browser and begin throwing errors/events to Sentry!
+1. Go to http://localhost:5000 in your browser and begin throwing errors/events to Sentry!
 
 ![Alt Text](configure-launch-react-demo.gif)
 
-# Tracing and correlating errors
+## Changelog
+05/24/19 - removed `scope.setTag("transaction_id", txId)` because `bundle.min.js`, `tracing.min.js` enable the `new Tracing()` feature  
+npm module `new Tracing()`  
+cdn `new Sentry.Integrations.Tracing({ tracingOrigins: ['localhost', /^\//] } )`
+
+## Tracing
+05/24/19 the following GIF is now outdated as tracing.min.js replaces all the setup shown in the GIF.
 ![Alt Text](configure-tracing-errors.gif)
