@@ -115,17 +115,17 @@ class App extends Component {
       scope.setExtra('inventory', JSON.stringify(this.store));
     });
 
-    const transactionId = getUniqueId();
-    Sentry.configureScope(scope => {
-      scope.setTag("transaction_id", transactionId);
-    });
+    // const transactionId = getUniqueId();
+    // Sentry.configureScope(scope => {
+    //   scope.setTag("transaction_id", transactionId);
+    // });
 
     request.post({
-        url: "http://localhost:8080/checkout",
+        url: "http://localhost:5001/checkout",
         json: order,
         headers: {
           "X-Session-ID": this.sessionId,
-          "X-Transaction-ID": transactionId,
+          // "X-Transaction-ID": transactionId,
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
         }
