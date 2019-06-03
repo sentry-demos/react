@@ -104,7 +104,7 @@ class App extends Component {
   */
   checkout() {
 
-    // this.functionStillUndefined() 
+    this.functionWillUndefined() 
 
     const order = {
       email: this.email,
@@ -121,7 +121,7 @@ class App extends Component {
     // });
 
     request.post({
-        url: "http://localhost:5001/checkout",
+        url: "http://localhost:8080/checkout",
         json: order,
         headers: {
           "X-Session-ID": this.sessionId,
