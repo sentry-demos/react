@@ -104,7 +104,7 @@ class App extends Component {
   */
   checkout() {
 
-    // this.functionStillUndefined()
+    // this.functionStillUndefined() 
 
     const order = {
       email: this.email,
