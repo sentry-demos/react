@@ -104,8 +104,8 @@ class App extends Component {
   */
   checkout() {
 
-    this.functionWillUndefined() 
-    // and this commit#2 testing Releases...
+    this.functionUndefined() 
+
     const order = {
       email: this.email,
       cart: this.state.cart
