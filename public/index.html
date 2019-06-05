@@ -22,17 +22,21 @@
     -->
   <title>Sentry Demo</title>
 
-  <!-- Import SDK -->
-  <script src="https://browser.sentry-cdn.com/4.0.5/bundle.min.js" crossorigin="anonymous"></script>
+  <!-- Import Sentry SDK & Sentry Tracing -->
+  <script src="https://browser.sentry-cdn.com/5.4.1/bundle.min.js" crossorigin="anonymous"></script>
+  <script src="https://browser.sentry-cdn.com/5.4.1/tracing.min.js" crossorigin="anonymous"></script>
 
-  <!-- Configure SDK -->
   <script>
+    // Configure SDK
     Sentry.init({
-      dsn: 'https://f3e1b754a04b4dc1be1b54454ec6d238@sentry.io/1356467',
+      dsn: 'https://2f2f750efd074d6e8a1c3337c2b4488a@sentry.io/1428657',
       release: "%REACT_APP_RELEASE%",
       environment: "prod",
-      beforeSend(event) {
-        // Check if it is an exception, if so, show the report dialog
+      integrations: [
+        new Sentry.Integrations.Tracing({ tracingOrigins: ['localhost', /^\//] } )
+      ],
+      beforeSend(event, hint) {
+        // if its an exception then show the report dialog
         if (event.exception) {
           Sentry.showReportDialog();
         }
