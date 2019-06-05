@@ -95,8 +95,9 @@ class App extends Component {
   }
 
   /*
-    POST request to /checkout endpoint.
-    - The sentry sdk's in index.html now set the 'trace' Id's as tags, so no longer need to set them in headers here
+  POST request to /checkout endpoint.
+    - The sentry sdk's set the trace ID as a Header and Event Tag for us
+    - throw error if response !== 200
   */
   checkout() {
 
