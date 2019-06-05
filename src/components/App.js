@@ -132,7 +132,7 @@ class App extends Component {
         if (response.statusCode === 200) {
           this.setState({ success: true });
         } else {
-          throw new Error(response.statusCode + " - " + response.statusMessage);
+          throw new Error(response.statusCode + " - " + (response.statusMessage || response.body));
         }
       }
     );
