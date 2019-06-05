@@ -24,7 +24,6 @@
 
   <!-- Import Sentry SDK -->
   <script src="https://browser.sentry-cdn.com/5.4.1/bundle.min.js" crossorigin="anonymous"></script>
-  <script src="https://browser.sentry-cdn.com/5.4.1/tracing.min.js" crossorigin="anonymous"></script>
 
   <script>
     // Configure SDK
@@ -32,9 +31,6 @@
       dsn: 'https://2f2f750efd074d6e8a1c3337c2b4488a@sentry.io/1428657',
       release: "%REACT_APP_RELEASE%",
       environment: "prod",
-      integrations: [
-        new Sentry.Integrations.Tracing({ tracingOrigins: ['localhost', /^\//] } )
-      ],
       beforeSend(event, hint) {
         // Check if it is an exception, if so, show the report dialog
         if (event.exception) {
