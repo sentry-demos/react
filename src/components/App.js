@@ -9,7 +9,6 @@ import hammerImg from "../assets/hammer.png";
 const request = require('request');
 
 const monify = n => (n / 100).toFixed(2);
-const getUniqueId = () => '_' + Math.random().toString(36).substr(2, 9);
 
 class App extends Component {
   constructor(props) {
@@ -48,10 +47,7 @@ class App extends Component {
     this.checkout = this.checkout.bind(this);
     this.resetCart = this.resetCart.bind(this);
 
-    // Generate unique sessionId and set as Sentry tag
-    this.sessionId = getUniqueId();
     Sentry.configureScope(scope => {
-      scope.setTag("session_id", this.sessionId);
       scope.setUser({"email": this.email });
     });
   }
@@ -103,11 +99,6 @@ class App extends Component {
     - The sentry sdk's in index.html now set the 'trace' Id's as tags, so no longer need to set them in headers here
   */
   checkout() {
-    const transactionId = getUniqueId();
-    Sentry.configureScope(scope => {
-      scope.setTag("transaction_id", transactionId);
-    });
-
 
     // this.functionUndefined()
 
@@ -122,13 +113,7 @@ class App extends Component {
 
     request.post({
         url: "http://localhost:5001/checkout",
-        json: order,
-        headers: {
-          "X-Session-ID": this.sessionId,
-          "X-Transaction-ID": transactionId,
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
-        }
+        json: order
       }, (error, response) => {
         if (error) {
           throw error;
