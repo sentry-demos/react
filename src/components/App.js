@@ -9,6 +9,7 @@ import hammerImg from "../assets/hammer.png";
 const request = require('request');
 
 const monify = n => (n / 100).toFixed(2);
+const getUniqueId = () => '_' + Math.random().toString(36).substr(2, 9);
 
 class App extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class App extends Component {
       cart: []
     };
 
-    // Generate random email
+    // generate random email
     this.email =
       Math.random()
         .toString(36)
@@ -46,10 +47,6 @@ class App extends Component {
     this.addToCart = this.addToCart.bind(this);
     this.checkout = this.checkout.bind(this);
     this.resetCart = this.resetCart.bind(this);
-
-    Sentry.configureScope(scope => {
-      scope.setUser({"email": this.email });
-    });
   }
 
   componentDidMount() {
@@ -58,23 +55,24 @@ class App extends Component {
       this.setState({ hasError: true, success: false });
       defaultError(error);
     };
-
+    // Add context to error/event
     Sentry.configureScope(scope => {
-      scope.setTag("customerType", "medium-plan");
+      scope.setUser({ email: this.email }); // attach user/email context
+      scope.setTag("customerType", "medium-plan"); // custom-tag
     });
   }
 
   addToCart(item) {
     const cart = [].concat(this.state.cart);
     cart.push(item);
-
+    console.log(item);
     this.setState({ cart, success: false });
 
     Sentry.configureScope(scope => {
       scope.setExtra('cart', JSON.stringify(cart));
     });
     Sentry.addBreadcrumb({
-      category: 'cart component',
+      category: 'cart',
       message: 'User added ' + item.name + ' to cart',
       level: 'info'
     });
@@ -94,27 +92,33 @@ class App extends Component {
     });
   }
 
-  /*
-  POST request to /checkout endpoint.
-    - The sentry sdk's set the trace ID as a Header and Event Tag for us
-    - throw error if response !== 200
-  */
   checkout() {
+    
+    // this.functionUndefined();
 
-    // this.functionUndefined()
-
+    /*
+      POST request to /checkout endpoint.
+        - Custom header with transactionId for transaction tracing
+        - throw error if response !== 200
+    */
     const order = {
       email: this.email,
       cart: this.state.cart
     };
 
+    // generate unique transactionId and set as Sentry tag
+    const transactionId = getUniqueId();
     Sentry.configureScope(scope => {
-      scope.setExtra('inventory', JSON.stringify(this.store));
+      scope.setTag("transaction_id", transactionId);
     });
 
+    // perform request (set transctionID as header and throw error appropriately)
     request.post({
         url: "http://localhost:5001/checkout",
-        json: order
+        json: order,
+        headers: {
+          "X-Transaction-ID": transactionId
+        }
       }, (error, response) => {
         if (error) {
           throw error;
@@ -122,11 +126,10 @@ class App extends Component {
         if (response.statusCode === 200) {
           this.setState({ success: true });
         } else {
-          throw new Error(response.statusCode + " - " + response.statusMessage);
+          throw new Error(response.statusCode + " - " + (response.statusMessage || response.body));
         }
       }
     );
-
   }
 
   render() {
@@ -154,7 +157,7 @@ class App extends Component {
                   <p>{name}</p>
                   <div className="button-wrapper">
                     <strong>${monify(price)}</strong>
-                    <button onClick={() => this.addToCart(item)}>Add to Cart</button>
+                    <button onClick={() => this.addToCart(item)}>Buy!</button>
                   </div>
                 </div>
               );
