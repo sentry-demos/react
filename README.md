@@ -35,10 +35,13 @@ $ npm run deploy
 ![Alt Text](configure-launch-react-demo.gif)
 
 ## Changelog
-05/24/19 - removed `scope.setTag("transaction_id", txId)` because `bundle.min.js`, `tracing.min.js` enable the `new Tracing()` feature  
-npm module `new Tracing()`  
-cdn `new Sentry.Integrations.Tracing({ tracingOrigins: ['localhost', /^\//] } )`
+**05/24/19**  
+The branch `tracing-integrations` features a Sentry Tracing library integration.
+- It sets trace id by default, so you'll see the code for `scope.setTag("transaction_id", txId)` is gone, no longer needed
+- It has Sentry SDK `bundle.min.js` and Sentry Tracing `tracing.min.js` imported and passed to the Sentry.init constructor:
+`new Sentry.Integrations.Tracing({ tracingOrigins: ['localhost', /^\//] } )`
 
 ## Tracing
-05/24/19 the following GIF is now outdated as tracing.min.js replaces all the setup shown in the GIF.
+**05/24/19**
+The following GIF corresponds to what's on the `master` branch
 ![Alt Text](configure-tracing-errors.gif)
