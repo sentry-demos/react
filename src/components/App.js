@@ -119,7 +119,7 @@ class App extends Component {
 
     // perform request (set transctionID as header and throw error appropriately)
     request.post({
-        url: "http://localhost:3001/checkout",
+        url: "http://localhost:8081/checkout",
         json: order,
         headers: {
           "X-Session-ID": this.sessionId,
