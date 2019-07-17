@@ -3,7 +3,7 @@
 #  SENTRY_AUTH_TOKEN
 
 SENTRY_ORG=testorg-az
-SENTRY_PROJECT=frontend-react
+SENTRY_PROJECT=react-demo-app
 VERSION=`sentry-cli releases propose-version`
 PREFIX=static/js
 
