@@ -66,6 +66,8 @@ class App extends Component {
       scope.setUser({ email: this.email }); // attach user/email context
       scope.setTag("customerType", "medium-plan"); // custom-tag
     });
+
+    this.performXHRRequest();
   }
 
   buyItem(item) {
@@ -96,6 +98,18 @@ class App extends Component {
       message: 'User emptied cart',
       level: 'info'
     });
+  }
+
+  performXHRRequest(){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+           console.log( xhttp.responseText);
+        }
+    };
+    xhttp.open("GET", "../sometext.txt", true);
+    xhttp.send();
+
   }
 
   checkout() {
