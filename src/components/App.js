@@ -67,6 +67,7 @@ class App extends Component {
       scope.setTag("customerType", "medium-plan"); // custom-tag
     });
 
+    //Will add an XHR Sentry breadcrumb
     this.performXHRRequest();
   }
 
@@ -101,20 +102,9 @@ class App extends Component {
   }
 
   performXHRRequest(){
-    /*var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState === 4 && this.status === 200) {
-           console.log( xhttp.responseText);
-        }
-    };
-    xhttp.open("GET", "../sometext.txt", true);
-    xhttp.send();
-*/
-
     fetch('https://jsonplaceholder.typicode.com/todos/1')
-    .then(response => response.json())
-    .then(json => console.log(json))
-
+      .then(response => response.json())
+      .then(json => console.log(json));
   }
 
   checkout() {
