@@ -66,6 +66,9 @@ class App extends Component {
       scope.setUser({ email: this.email }); // attach user/email context
       scope.setTag("customerType", "medium-plan"); // custom-tag
     });
+
+    //Will add an XHR Sentry breadcrumb
+    this.performXHRRequest();
   }
 
   buyItem(item) {
@@ -96,6 +99,12 @@ class App extends Component {
       message: 'User emptied cart',
       level: 'info'
     });
+  }
+
+  performXHRRequest(){
+    fetch('https://jsonplaceholder.typicode.com/todos/1')
+      .then(response => response.json())
+      .then(json => console.log(json));
   }
 
   checkout() {
