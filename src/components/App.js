@@ -99,7 +99,7 @@ class App extends Component {
   }
 
   checkout() {
-    this.myCodeIsPerfect();
+    this.myCodeIsNotPerfect();
 
     /*
       POST request to /checkout endpoint.
@@ -119,7 +119,7 @@ class App extends Component {
 
     // perform request (set transctionID as header and throw error appropriately)
     request.post({
-        url: "http://localhost:8081/checkout",
+        url: "http://localhost:3001/checkout",
         json: order,
         headers: {
           "X-Session-ID": this.sessionId,
