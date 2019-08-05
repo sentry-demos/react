@@ -44,7 +44,7 @@ class App extends Component {
         img: hammerImg
       }
     ];
-    this.addToCart = this.addToCart.bind(this);
+    this.buyItem = this.buyItem.bind(this);
     this.checkout = this.checkout.bind(this);
     this.resetCart = this.resetCart.bind(this);
   }
@@ -65,7 +65,7 @@ class App extends Component {
     this.performXHRRequest();
   }
 
-  addToCart(item) {
+  buyItem(item) {
     const cart = [].concat(this.state.cart);
     cart.push(item);
     console.log(item);
@@ -165,7 +165,7 @@ class App extends Component {
                   <p>{name}</p>
                   <div className="button-wrapper">
                     <strong>${monify(price)}</strong>
-                    <button onClick={() => this.addToCart(item)}>Buy!</button>
+                    <button onClick={() => this.buyItem(item)}>Buy!</button>
                   </div>
                 </div>
               );

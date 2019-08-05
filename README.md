@@ -1,6 +1,6 @@
 # sentry-demos/react
 
-## Summary:
+## Goal/Summary:
 Show how Sentry works
 - Import/Integrate
 - Configuration

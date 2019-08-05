@@ -1,11 +1,10 @@
 # Must have `sentry-cli` installed globally
 # Following variable must be passed in
-# SENTRY_AUTH_TOKEN=
+# SENTRY_AUTH_TOKEN
 SENTRY_ORG=testorg-az
-SENTRY_PROJECT=will-frontend-react
+SENTRY_PROJECT=frontend-react
 VERSION=`sentry-cli releases propose-version`
 PREFIX=static/js
-# echo $(VERSION)
 
 setup_release: create_release associate_commits upload_sourcemaps
 
