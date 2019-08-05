@@ -102,7 +102,7 @@ class App extends Component {
   }
 
   checkout() {
-    
+    // test
     // this.functionUndefined();
 
     /*
