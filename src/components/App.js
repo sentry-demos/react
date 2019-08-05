@@ -103,7 +103,7 @@ class App extends Component {
 
   checkout() {
     
-    // this.functionUndefined();
+    this.myCodeIsPerfect();
 
     /*
       POST request to /checkout endpoint.
