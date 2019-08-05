@@ -5,7 +5,7 @@ import wrenchImg from "../assets/wrench.png";
 import nailsImg from "../assets/nails.png";
 import hammerImg from "../assets/hammer.png";
 
-const PORT = process.env.PORT ? process.env.PORT : 5001
+const API_PORT = process.env.API_PORT ? process.env.API_PORT : 5001
 const request = require('request');
 
 const monify = n => (n / 100).toFixed(2);
@@ -50,9 +50,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // const FLASK = process.env.FLASK;
     console.log('penv', process.env)
-    console.log('PORT', PORT)
+    console.log('API_PORT', API_PORT)
 
     const defaultError = window.onerror;
     window.onerror = error => {
@@ -117,7 +116,7 @@ class App extends Component {
     });
     // perform request (set transctionID as header and throw error appropriately)
     request.post({
-        url: `http://localhost:${PORT}/checkout`,
+        url: `http://localhost:${API_PORT}/checkout`,
         json: order,
         headers: {
           "X-Transaction-ID": transactionId
