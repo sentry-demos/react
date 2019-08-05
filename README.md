@@ -46,22 +46,12 @@ The branch `tracing-integrations` features a Sentry Tracing library integration.
 The following GIF corresponds to what's on the `master` branch
 ![Alt Text](configure-tracing-errors.gif)
 
-## Demo Environments
-For the React App to connect to any back-end /checkout route. This sets the PORT number for you and still runs `npm run deploy`
+## Demo Environments (optional)
+`react.sh` allows you to connect the React App to any back-end's `/checkout` endpoint. `react.sh` sets the PORT number for you and still runs `npm run deploy`.
+If you don't use `react.sh`, the default port will still be left at 3001.
 #### Example usages:
 ```
-./demo.sh flask
-./demo.sh rails
-./demo.sh spring
-```
-- See demo.sh
-- If you don't use demo.sh, it will use port 5001 (flask) by default, see App.js
-
-#### PR Notes:
-```
-- didn't go with ports.json or a map held in-project. all localized to demo.sh
-- didn't need dotenv (was throwing errors anyways) and its .env file
-- https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables
-- 'PORT' conflicted and would cause react to run on PORT. so renamed as API_PORT
-- don't like that REACT_APP_PORT refers to a back-end, but looks like 'port react is runnin on'
+./react.sh flask
+./react.sh rails
+./react.sh spring
 ```
