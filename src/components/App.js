@@ -5,12 +5,7 @@ import wrenchImg from "../assets/wrench.png";
 import nailsImg from "../assets/nails.png";
 import hammerImg from "../assets/hammer.png";
 
-import { flask } from "./ports.json"
-
-// require('dotenv').config()
-// console.log(require('dotenv').config())
-// const dotenv = require('dotenv') // ???
-
+const PORT = process.env.PORT ? process.env.PORT : 5001
 const request = require('request');
 
 const monify = n => (n / 100).toFixed(2);
@@ -57,6 +52,7 @@ class App extends Component {
   componentDidMount() {
     // const FLASK = process.env.FLASK;
     console.log('penv', process.env)
+    console.log('PORT', PORT)
 
     const defaultError = window.onerror;
     window.onerror = error => {
@@ -102,7 +98,7 @@ class App extends Component {
 
   checkout() {
     
-    this.functionUndefined();
+    // this.functionUndefined();
 
     /*
       POST request to /checkout endpoint.
@@ -122,7 +118,6 @@ class App extends Component {
     // perform request (set transctionID as header and throw error appropriately)
     request.post({
         url: `http://localhost:${PORT}/checkout`,
-        // url: "http://localhost:5001/checkout",
         json: order,
         headers: {
           "X-Transaction-ID": transactionId

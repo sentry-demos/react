@@ -47,9 +47,19 @@ The following GIF corresponds to what's on the `master` branch
 ![Alt Text](configure-tracing-errors.gif)
 
 ## Demo Environments
-how to env var available in app.js
-`REACT_APP_NOT_SECRET_CODE=abcdef npm start`
-PORT=<number> npm start
-SERVER=flask npm start
-SERVER=rails npm start
-SERVER=laravel npm start
+For the React App to connect to any back-end /checkout route. This sets the PORT number for you and still runs `npm run deploy`
+#### Example usages:
+```
+./demo.sh flask
+./demo.sh rails
+./demo.sh spring
+```
+- See demo.sh
+- If you don't use demo.sh, it will use port 5001 (flask) by default, see App.js
+
+#### PR Notes:
+```
+- didn't go with ports.json or a map held in-project. all localized to demo.sh
+- didn't need dotenv (was throwing errors anyways) and its .env file
+- https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables
+```
