@@ -63,4 +63,5 @@ For the React App to connect to any back-end /checkout route. This sets the PORT
 - didn't need dotenv (was throwing errors anyways) and its .env file
 - https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables
 - 'PORT' conflicted and would cause react to run on PORT. so renamed as API_PORT
+- don't like that REACT_APP_PORT refers to a back-end, but looks like 'port react is runnin on'
 ```

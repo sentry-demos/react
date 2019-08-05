@@ -19,7 +19,7 @@
     "predeploy": "npm run build && make setup_release",
     "deploy": "serve -s build",
     "start": "REACT_APP_RELEASE=`sentry-cli releases propose-version` react-scripts start",
-    "build": "REACT_APP_RELEASE=`sentry-cli releases propose-version` react-scripts build blahh",
+    "build": "REACT_APP_RELEASE=`sentry-cli releases propose-version` react-scripts build",
     "eject": "react-scripts eject",
     "deploy-ghp": "npm run predeploy && gh-pages -d build"
   },
