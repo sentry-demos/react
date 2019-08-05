@@ -5,6 +5,7 @@
   "dependencies": {
     "@sentry/cli": "^1.37.0",
     "@sentry/integrations": "^5.3.0",
+    "dotenv": "^8.0.0",
     "history": "^1.17.0",
     "material-ui": "^0.18.7",
     "react": "^15.6.2",
@@ -18,7 +19,7 @@
     "predeploy": "npm run build && make setup_release",
     "deploy": "serve -s build",
     "start": "REACT_APP_RELEASE=`sentry-cli releases propose-version` react-scripts start",
-    "build": "REACT_APP_RELEASE=`sentry-cli releases propose-version` react-scripts build",
+    "build": "REACT_APP_RELEASE=`sentry-cli releases propose-version` react-scripts build blahh",
     "eject": "react-scripts eject",
     "deploy-ghp": "npm run predeploy && gh-pages -d build"
   },

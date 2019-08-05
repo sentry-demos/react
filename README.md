@@ -45,3 +45,11 @@ The branch `tracing-integrations` features a Sentry Tracing library integration.
 **05/24/19**
 The following GIF corresponds to what's on the `master` branch
 ![Alt Text](configure-tracing-errors.gif)
+
+## Demo Environments
+how to env var available in app.js
+`REACT_APP_NOT_SECRET_CODE=abcdef npm start`
+PORT=<number> npm start
+SERVER=flask npm start
+SERVER=rails npm start
+SERVER=laravel npm start
