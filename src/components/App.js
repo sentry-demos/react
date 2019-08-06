@@ -1,11 +1,11 @@
 /*global Sentry*/
-
 import React, { Component } from "react";
 import "./App.css";
 import wrenchImg from "../assets/wrench.png";
 import nailsImg from "../assets/nails.png";
 import hammerImg from "../assets/hammer.png";
 
+const PORT = process.env.REACT_APP_PORT || 3001
 const request = require('request');
 
 const monify = n => (n / 100).toFixed(2);
@@ -44,9 +44,15 @@ class App extends Component {
         img: hammerImg
       }
     ];
-    this.addToCart = this.addToCart.bind(this);
+    this.buyItem = this.buyItem.bind(this);
     this.checkout = this.checkout.bind(this);
     this.resetCart = this.resetCart.bind(this);
+
+    // generate unique sessionId and set as Sentry tag
+    this.sessionId = getUniqueId();
+    Sentry.configureScope(scope => {
+      scope.setTag("session_id", this.sessionId);
+    });
   }
 
   componentDidMount() {
@@ -65,7 +71,7 @@ class App extends Component {
     this.performXHRRequest();
   }
 
-  addToCart(item) {
+  buyItem(item) {
     const cart = [].concat(this.state.cart);
     cart.push(item);
     console.log(item);
@@ -102,8 +108,9 @@ class App extends Component {
   }
 
   checkout() {
-    // test
-    // this.functionUndefined();
+
+    this.myCodeIsPerfect();
+
 
     /*
       POST request to /checkout endpoint.
@@ -120,13 +127,13 @@ class App extends Component {
     Sentry.configureScope(scope => {
       scope.setTag("transaction_id", transactionId);
     });
-
     // perform request (set transctionID as header and throw error appropriately)
     request.post({
-        url: "http://localhost:5001/checkout",
+        url: `http://localhost:${PORT}/checkout`,
         json: order,
         headers: {
-          "X-Transaction-ID": transactionId
+          "X-Transaction-ID": transactionId,
+          "X-Session-ID": this.sessionId
         }
       }, (error, response) => {
         if (error) {
@@ -166,7 +173,7 @@ class App extends Component {
                   <p>{name}</p>
                   <div className="button-wrapper">
                     <strong>${monify(price)}</strong>
-                    <button onClick={() => this.addToCart(item)}>Buy!</button>
+                    <button onClick={() => this.buyItem(item)}>Buy!</button>
                   </div>
                 </div>
               );
