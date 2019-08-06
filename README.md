@@ -34,24 +34,6 @@ $ npm run deploy
 
 ![Alt Text](configure-launch-react-demo.gif)
 
-## Changelog
-**05/24/19**  
-The branch `tracing-integrations` features a Sentry Tracing library integration.
-- It sets trace id by default, so you'll see the code for `scope.setTag("transaction_id", txId)` is gone, no longer needed
-- It has Sentry SDK `bundle.min.js` and Sentry Tracing `tracing.min.js` imported and passed to the Sentry.init constructor:
-`new Sentry.Integrations.Tracing({ tracingOrigins: ['localhost', /^\//] } )`
-
 ## Tracing
-**05/24/19**
-The following GIF corresponds to what's on the `master` branch
 ![Alt Text](configure-tracing-errors.gif)
 
-## Demo Environments (optional)
-`react.sh` allows you to connect the React App to any back-end's `/checkout` endpoint. `react.sh` sets the PORT number for you and still runs `npm run deploy`.
-If you don't use `react.sh`, the default port will still be left at 3001.
-#### Example usages:
-```
-./react.sh flask
-./react.sh rails
-./react.sh spring
-```

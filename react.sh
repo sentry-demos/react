@@ -1,7 +1,9 @@
-# REACT_APP_PORT means port that the POST request is sent to
+# `react.sh` allows you to connect the React App to any back-end `/checkout` endpoint
+#  Example usage:
+# ./react.sh express
 
 if [[ $1 == 'aspnet' ]]
-    then REACT_APP_PORT=62920/Home npm run deploy;
+    then REACT_APP_PORT=5001 npm run deploy;
 fi
 
 if [[ $1 == 'express' ]]

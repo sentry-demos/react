@@ -5,7 +5,7 @@ import wrenchImg from "../assets/wrench.png";
 import nailsImg from "../assets/nails.png";
 import hammerImg from "../assets/hammer.png";
 
-const PORT = process.env.REACT_APP_PORT ? process.env.REACT_APP_PORT : 3001
+const PORT = process.env.REACT_APP_PORT || 3001
 const request = require('request');
 
 const monify = n => (n / 100).toFixed(2);
@@ -47,6 +47,12 @@ class App extends Component {
     this.buyItem = this.buyItem.bind(this);
     this.checkout = this.checkout.bind(this);
     this.resetCart = this.resetCart.bind(this);
+
+    // generate unique sessionId and set as Sentry tag
+    this.sessionId = getUniqueId();
+    Sentry.configureScope(scope => {
+      scope.setTag("session_id", this.sessionId);
+    });
   }
 
   componentDidMount() {
@@ -125,7 +131,8 @@ class App extends Component {
         url: `http://localhost:${PORT}/checkout`,
         json: order,
         headers: {
-          "X-Transaction-ID": transactionId
+          "X-Transaction-ID": transactionId,
+          "X-Session-ID": this.sessionId
         }
       }, (error, response) => {
         if (error) {
