@@ -131,8 +131,9 @@ class App extends Component {
         url: `http://localhost:${PORT}/checkout`,
         json: order,
         headers: {
-          "X-Transaction-ID": transactionId,
-          "X-Session-ID": this.sessionId
+          "X-Session-ID": this.sessionId,
+          "X-Transaction-ID": transactionId
+
         }
       }, (error, response) => {
         if (error) {
