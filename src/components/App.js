@@ -1,11 +1,11 @@
 /*global Sentry*/
-
 import React, { Component } from "react";
 import "./App.css";
 import wrenchImg from "../assets/wrench.png";
 import nailsImg from "../assets/nails.png";
 import hammerImg from "../assets/hammer.png";
 
+const PORT = process.env.REACT_APP_PORT || 3001
 const request = require('request');
 
 const monify = n => (n / 100).toFixed(2);
@@ -66,6 +66,9 @@ class App extends Component {
       scope.setUser({ email: this.email }); // attach user/email context
       scope.setTag("customerType", "medium-plan"); // custom-tag
     });
+
+    //Will add an XHR Sentry breadcrumb
+    this.performXHRRequest();
   }
 
   buyItem(item) {
@@ -98,6 +101,12 @@ class App extends Component {
     });
   }
 
+  performXHRRequest(){
+    fetch('https://jsonplaceholder.typicode.com/todos/1')
+      .then(response => response.json())
+      .then(json => console.log(json));
+  }
+
   checkout() {
     this.myCodeIsPerfect();
 
@@ -116,14 +125,14 @@ class App extends Component {
     Sentry.configureScope(scope => {
       scope.setTag("transaction_id", transactionId);
     });
-
     // perform request (set transctionID as header and throw error appropriately)
     request.post({
-        url: "http://localhost:3001/checkout",
+        url: `http://localhost:${PORT}/checkout`,
         json: order,
         headers: {
           "X-Session-ID": this.sessionId,
           "X-Transaction-ID": transactionId
+
         }
       }, (error, response) => {
         if (error) {
