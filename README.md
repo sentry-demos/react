@@ -26,12 +26,14 @@ token would be this: `export SENTRY_AUTH_TOKEN=1010101011010101`
 6. Enter your Sentry organization slug in the `SENTRY_ORG` line of your Makefile,
 then add the name of `SENTRY_PROJECT`
 
+## Run
 ```
 $ npm run deploy
 ```
-7. Go to http://localhost:5000 in your browser and begin throwing errors/events to Sentry!
+1. Go to http://localhost:5000 in your browser and begin throwing errors/events to Sentry!
 
 ![Alt Text](configure-launch-react-demo.gif)
 
-# Tracing and correlating errors
+## Tracing
 ![Alt Text](configure-tracing-errors.gif)
+
