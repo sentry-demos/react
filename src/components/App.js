@@ -108,7 +108,6 @@ class App extends Component {
   }
 
   checkout() {
-    
     this.myCodeIsPerfect();
 
     /*
