@@ -108,9 +108,7 @@ class App extends Component {
   }
 
   checkout() {
-
-    // this.myCodeIsPerfect();
-
+    this.myCodeIsPerfect();
 
     /*
       POST request to /checkout endpoint.
@@ -122,33 +120,31 @@ class App extends Component {
       cart: this.state.cart
     };
 
-    Sentry.withScope(scope => {
-      // generate unique transactionId and set as Sentry tag
-      const transactionId = getUniqueId();
+    // generate unique transactionId and set as Sentry tag
+    const transactionId = getUniqueId();
+    Sentry.configureScope(scope => {
       scope.setTag("transaction_id", transactionId);
-      console.log("TRANSACTION ID", transactionId)
-      // perform request (set transctionID as header and throw error appropriately)
-      request.post({
-          url: `http://localhost:${PORT}/checkout`,
-          json: order,
-          headers: {
-            "X-Session-ID": this.sessionId,
-            "X-Transaction-ID": transactionId
-          }
-        }, (error, response) => {
-          if (error) {
-            throw error;
-          }
-          if (response.statusCode === 200) {
-            this.setState({ success: true });
-          } else {
-            throw new Error(response.statusCode + " - " + (response.statusMessage || response.body));
-          }
-        }
-      );    
     });
-    
+    // perform request (set transctionID as header and throw error appropriately)
+    request.post({
+        url: `http://localhost:${PORT}/checkout`,
+        json: order,
+        headers: {
+          "X-Session-ID": this.sessionId,
+          "X-Transaction-ID": transactionId
 
+        }
+      }, (error, response) => {
+        if (error) {
+          throw error;
+        }
+        if (response.statusCode === 200) {
+          this.setState({ success: true });
+        } else {
+          throw new Error(response.statusCode + " - " + (response.statusMessage || response.body));
+        }
+      }
+    );
   }
 
   render() {
