@@ -4,7 +4,10 @@ import "./App.css";
 import wrenchImg from "../assets/wrench.png";
 import nailsImg from "../assets/nails.png";
 import hammerImg from "../assets/hammer.png";
-import { testTypeIssue11, theCriticalIssue } from "../critical"
+
+// Remove this line if you download Sentry by CDN
+import * as Sentry from '@sentry/browser';
+
 const PORT = process.env.REACT_APP_PORT || 3001
 const request = require('request');
 

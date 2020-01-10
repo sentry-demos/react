@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@sentry/apm": "^5.10.0-rc.0",
+    "@sentry/browser": "^5.10.0-rc.0",
     "@sentry/cli": "^1.37.0",
     "history": "^1.17.0",
     "material-ui": "^0.18.7",
