@@ -22,10 +22,17 @@
     -->
   <title>Sentry Demo</title>
 
-  <!-- 01/10/19 Waiting on CDN availability, see src/index.js for now -->
-  <!-- Import SDK -->
-  <!-- <script src="https://browser.sentry-cdn.com/5.4.1/bundle.min.js" crossorigin="anonymous"></script> -->
-  <!-- <script>
+  <script src="https://browser.sentry-cdn.com/5.4.1/bundle.min.js" crossorigin="anonymous"></script>
+  
+  <!-- Loads, but transaction does not get created -->
+  <script src="./bundle.apm.js"></script>
+
+  <!-- Errors, does not find the Sentry constructor -->
+  <!-- <script src="../src/bundle.apm.js"></script> -->
+
+
+  <script>
+    const tracesSampleRate = 0
     Sentry.init({
       dsn: 'https://0d52d5f4e8a64f5ab2edce50d88a7626@sentry.io/1428657',
       release: "%REACT_APP_RELEASE%",
@@ -35,9 +42,15 @@
           Sentry.showReportDialog();
         }
         return event;
-      }
+      },
+      integrations: [
+        new Sentry.Integrations.Tracing({
+          tracingOrigins: ['localhost', 'sentry.io', /^\//],
+          tracesSampleRate,
+        }),
+      ],
     });
-  </script> -->
+  </script>
   <link href="https://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">
 
 </head>
