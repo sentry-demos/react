@@ -6,7 +6,7 @@ import nailsImg from "../assets/nails.png";
 import hammerImg from "../assets/hammer.png";
 
 // Remove this line if you download Sentry by CDN
-import * as Sentry from '@sentry/browser';
+// import * as Sentry from '@sentry/browser';
 
 const PORT = process.env.REACT_APP_PORT || 3001
 const request = require('request');
