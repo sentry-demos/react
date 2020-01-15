@@ -136,24 +136,41 @@ class App extends Component {
       scope.setTag("transaction_id", transactionId);
     });
     // perform request (set transctionID as header and throw error appropriately)
-    request.post({
-        url: `http://localhost:${PORT}/checkout`,
-        json: order,
-        headers: {
-          "X-Session-ID": this.sessionId,
-          "X-Transaction-ID": transactionId
-        }
-      }, (error, response) => {
-        if (error) {
-          throw error;
-        }
-        if (response.statusCode === 200) {
-          this.setState({ success: true });
-        } else {
-          throw new Error(response.statusCode + " - " + (response.statusMessage || response.body));
-        }
-      }
-    );
+    fetch(`http://localhost:${PORT}/checkout`, {
+      method: "POST",
+      // headers: {
+      //   'Content-Type': 'application/json'
+      //   // 'Content-Type': 'application/x-www-form-urlencoded',
+      // },
+      body: JSON.stringify(order)
+    })
+      .then(response => {
+        console.log("raw response", response);
+        return response.text();
+      })
+      .then(response => {
+        console.log("response", response);
+      });
+
+    // This doesn't seem to work
+    // request.post({
+    //     url: `http://localhost:${PORT}/checkout`,
+    //     json: order,
+    //     headers: {
+    //       "X-Session-ID": this.sessionId,
+    //       "X-Transaction-ID": transactionId
+    //     }
+    //   }, (error, response) => {
+    //     if (error) {
+    //       throw error;
+    //     }
+    //     if (response.statusCode === 200) {
+    //       this.setState({ success: true });
+    //     } else {
+    //       throw new Error(response.statusCode + " - " + (response.statusMessage || response.body));
+    //     }
+    //   }
+    // );
   }
 
   render() {
