@@ -138,39 +138,20 @@ class App extends Component {
     // perform request (set transctionID as header and throw error appropriately)
     fetch(`http://localhost:${PORT}/checkout`, {
       method: "POST",
-      // headers: {
-      //   'Content-Type': 'application/json'
-      //   // 'Content-Type': 'application/x-www-form-urlencoded',
-      // },
+      headers: {
+        "X-Session-ID": this.sessionId,
+        "X-Transaction-ID": transactionId
+      },
       body: JSON.stringify(order)
     })
       .then(response => {
-        console.log("raw response", response);
-        return response.text();
+        if (response.status === 200) {
+          this.setState({ success: true });
+          return response.text(); // logs as Promise {<pending>}
+        } else {
+          throw new Error(response.status + " - " + (response.statusText || response.body));
+        }
       })
-      .then(response => {
-        console.log("response", response);
-      });
-
-    // This doesn't seem to work
-    // request.post({
-    //     url: `http://localhost:${PORT}/checkout`,
-    //     json: order,
-    //     headers: {
-    //       "X-Session-ID": this.sessionId,
-    //       "X-Transaction-ID": transactionId
-    //     }
-    //   }, (error, response) => {
-    //     if (error) {
-    //       throw error;
-    //     }
-    //     if (response.statusCode === 200) {
-    //       this.setState({ success: true });
-    //     } else {
-    //       throw new Error(response.statusCode + " - " + (response.statusMessage || response.body));
-    //     }
-    //   }
-    // );
   }
 
   render() {
