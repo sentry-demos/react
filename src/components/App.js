@@ -5,6 +5,9 @@ import wrenchImg from "../assets/wrench.png";
 import nailsImg from "../assets/nails.png";
 import hammerImg from "../assets/hammer.png";
 
+// Remove this line if you download Sentry by CDN
+// import * as Sentry from '@sentry/browser';
+
 const PORT = process.env.REACT_APP_PORT || 3001
 const request = require('request');
 
@@ -70,8 +73,14 @@ class App extends Component {
     //Will add an XHR Sentry breadcrumb
     this.performXHRRequest();
   }
+  regularsLastIssue() {
+    console.log('regularsLastIssue, fallback assignment')
+    throw new Error("regularsLastIssue, fallback assignment");
+  }
+
 
   buyItem(item) {
+
     const cart = [].concat(this.state.cart);
     cart.push(item);
     console.log(item);
@@ -108,7 +117,8 @@ class App extends Component {
   }
 
   checkout() {
-    this.myCodeIsPerfect();
+
+    // this.myCodeIsNotPerfect();
 
     /*
       POST request to /checkout endpoint.
@@ -126,25 +136,22 @@ class App extends Component {
       scope.setTag("transaction_id", transactionId);
     });
     // perform request (set transctionID as header and throw error appropriately)
-    request.post({
-        url: `http://localhost:${PORT}/checkout`,
-        json: order,
-        headers: {
-          "X-Session-ID": this.sessionId,
-          "X-Transaction-ID": transactionId
-
-        }
-      }, (error, response) => {
-        if (error) {
-          throw error;
-        }
-        if (response.statusCode === 200) {
+    fetch(`http://localhost:${PORT}/checkout`, {
+      method: "POST",
+      headers: {
+        "X-Session-ID": this.sessionId,
+        "X-Transaction-ID": transactionId
+      },
+      body: JSON.stringify(order)
+    })
+      .then(response => {
+        if (response.status === 200) {
           this.setState({ success: true });
+          return response.text(); // logs as Promise {<pending>}
         } else {
-          throw new Error(response.statusCode + " - " + (response.statusMessage || response.body));
+          throw new Error(response.status + " - " + (response.statusText || response.body));
         }
-      }
-    );
+      })
   }
 
   render() {

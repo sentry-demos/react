@@ -22,24 +22,37 @@
     -->
   <title>Sentry Demo</title>
 
-  <!-- Import SDK -->
-  <script src="https://browser.sentry-cdn.com/5.4.1/bundle.min.js" crossorigin="anonymous"></script>
+  <!-- <script src="https://browser.sentry-cdn.com/5.4.1/bundle.min.js" crossorigin="anonymous"></script> -->
+
+  <!-- <script src="https://unpkg.com/browse/@sentry/browser@5.11.1/build/bundle.min.js" type="application/json" crossorigin="anonymous"></script>   -->
+  <!-- <script src="./bundle.apm.js"></script> -->
+  <script src="https://browser.sentry-cdn.com/5.11.1/bundle.apm.min.js" crossorigin="anonymous"></script>
+
+  <!-- Errors, does not find the Sentry constructor -->
+  <!-- <script src="../src/bundle.apm.js"></script> -->
+
 
   <script>
+    const tracesSampleRate = 1
     Sentry.init({
-      dsn: 'https://f3e1b754a04b4dc1be1b54454ec6d238@sentry.io/1356467',
+      dsn: 'https://0d52d5f4e8a64f5ab2edce50d88a7626@sentry.io/1428657',
       release: "%REACT_APP_RELEASE%",
       environment: "prod",
       beforeSend(event) {
-        // Check if it is an exception, if so, show the report dialog
         if (event.exception) {
           Sentry.showReportDialog();
         }
         return event;
-      }
+      },
+      integrations: [
+        new Sentry.Integrations.Tracing({
+          tracingOrigins: ['localhost', 'sentry.io', /^\//],
+          tracesSampleRate,
+        }),
+      ],
     });
   </script>
-<link href="https://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">
 
 </head>
 
