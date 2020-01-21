@@ -4,6 +4,7 @@ import "./App.css";
 import wrenchImg from "../assets/wrench.png";
 import nailsImg from "../assets/nails.png";
 import hammerImg from "../assets/hammer.png";
+import { SplitFactory } from '@splitsoftware/splitio';
 
 const PORT = process.env.REACT_APP_PORT || 3001
 const request = require('request');
@@ -15,8 +16,52 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cart: []
+      cart: [],
+      lastSplitUpdate: -1
     };
+
+    // Instantiate the SDK
+    var factory = SplitFactory({ 
+      core: {
+        authorizationKey: 't2fmorjes3mslhms9jjua3glm4q2fotaje2v',
+        // the key can be the logged in
+        // user id, or the account id that 
+        // the logged in user belongs to. 
+        // The type of customer (user, account, custom)
+        // is chosen during Split's sign-up process.
+        key: 'kevin'
+      }
+    });
+
+    // And get the client instance you'll use
+    this.splitClient = factory.client();
+
+    this.store =[{
+      id: "nails",
+      name: "Nails",
+      price: 25,
+      img: nailsImg
+    },
+    {
+      id: "hammer",
+      name: "Hammer",
+      price: 1000,
+      img: hammerImg
+    }];
+
+    this.splitClient.once(this.splitClient.Event.SDK_READY, ()=> {
+      var treatment = this.splitClient.getTreatment("new_wrench");
+      if (treatment == "on") {
+        // insert code here to show on treatment
+        this.store.unshift({
+            id: "wrench",
+            name: "Wrench",
+            price: 500,
+            img: wrenchImg
+          });
+      }
+      this.setState({ lastSplitUpdate: Date.now() });
+    });
 
     // generate random email
     this.email =
@@ -24,26 +69,7 @@ class App extends Component {
         .toString(36)
         .substring(2, 6) + "@yahoo.com";
 
-    this.store = [
-      {
-        id: "wrench",
-        name: "Wrench",
-        price: 500,
-        img: wrenchImg
-      },
-      {
-        id: "nails",
-        name: "Nails",
-        price: 25,
-        img: nailsImg
-      },
-      {
-        id: "hammer",
-        name: "Hammer",
-        price: 1000,
-        img: hammerImg
-      }
-    ];
+        
     this.buyItem = this.buyItem.bind(this);
     this.checkout = this.checkout.bind(this);
     this.resetCart = this.resetCart.bind(this);
@@ -65,6 +91,26 @@ class App extends Component {
     Sentry.configureScope(scope => {
       scope.setUser({ email: this.email }); // attach user/email context
       scope.setTag("customerType", "medium-plan"); // custom-tag
+    });
+
+    // Add a listener to Split SDK_UPDATE event so we can react to rollout plan changes.
+    this.splitClient.on(this.splitClient.Event.SDK_UPDATE, ()=> {
+      var treatment = this.splitClient.getTreatment("new_wrench");
+      let wrenchIndex = this.store.findIndex((item => item.id === 'wrench'));
+
+      if (treatment === "on" && wrenchIndex === -1) {
+        // insert code here to show on treatment
+        this.store.unshift({
+            id: "wrench",
+            name: "Wrench",
+            price: 500,
+            img: wrenchImg
+          });
+      } else if (wrenchIndex >= 0) {
+        this.store.splice(wrenchIndex, 1);
+      }
+      // Quick way to trigger a re-render to avoid moving the store data.
+      this.setState({ lastSplitUpdate: Date.now() });
     });
 
     //Will add an XHR Sentry breadcrumb
