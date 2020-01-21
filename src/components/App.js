@@ -4,6 +4,7 @@ import "./App.css";
 import wrenchImg from "../assets/wrench.png";
 import nailsImg from "../assets/nails.png";
 import hammerImg from "../assets/hammer.png";
+import { SplitFactory } from '@splitsoftware/splitio';
 
 const PORT = process.env.REACT_APP_PORT || 3001
 const request = require('request');
@@ -18,32 +19,96 @@ class App extends Component {
       cart: []
     };
 
+    // Instantiate the SDK
+    var factory = SplitFactory({ 
+      core: {
+        authorizationKey: '3a7uo9c6apqbat9uvgrhnvlnuislje04u34q',
+        // the key can be the logged in
+        // user id, or the account id that 
+        // the logged in user belongs to. 
+        // The type of customer (user, account, custom)
+        // is chosen during Split's sign-up process.
+        key: 'kevin'
+      },
+      startup: {
+        readyTimeout: 1.5 // 1.5 sec
+      }
+    });
+    // And get the client instance you'll use
+    var client = factory.client();
+
+    client.on(client.Event.SDK_READY, function() {
+      var treatment = client.getTreatment("new_wrench");
+      if (treatment == "on") {
+          // insert code here to show on treatment
+          this.store = [
+            {
+              id: "wrench",
+              name: "Wrench",
+              price: 500,
+              img: wrenchImg
+            },
+            {
+              id: "nails",
+              name: "Nails",
+              price: 25,
+              img: nailsImg
+            },
+            {
+              id: "hammer",
+              name: "Hammer",
+              price: 1000,
+              img: hammerImg
+            }
+          ];
+      } else if (treatment == "off") {
+          // insert code here to show off treatment
+          this.store = [
+            {
+              id: "nails",
+              name: "Nails",
+              price: 25,
+              img: nailsImg
+            },
+            {
+              id: "hammer",
+              name: "Hammer",
+              price: 1000,
+              img: hammerImg
+            }
+          ];
+      } else {
+          // insert your control treatment code here
+          this.store = [
+            {
+              id: "wrench",
+              name: "Wrench",
+              price: 500,
+              img: wrenchImg
+            },
+            {
+              id: "nails",
+              name: "Nails",
+              price: 25,
+              img: nailsImg
+            },
+            {
+              id: "hammer",
+              name: "Hammer",
+              price: 1000,
+              img: hammerImg
+            }
+          ];
+      }
+    });
+
     // generate random email
     this.email =
       Math.random()
         .toString(36)
         .substring(2, 6) + "@yahoo.com";
 
-    this.store = [
-      {
-        id: "wrench",
-        name: "Wrench",
-        price: 500,
-        img: wrenchImg
-      },
-      {
-        id: "nails",
-        name: "Nails",
-        price: 25,
-        img: nailsImg
-      },
-      {
-        id: "hammer",
-        name: "Hammer",
-        price: 1000,
-        img: hammerImg
-      }
-    ];
+    
     this.buyItem = this.buyItem.bind(this);
     this.checkout = this.checkout.bind(this);
     this.resetCart = this.resetCart.bind(this);
