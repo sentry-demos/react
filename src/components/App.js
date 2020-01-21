@@ -26,12 +26,6 @@ class App extends Component {
 
     this.store = [
       {
-        id: "wrench",
-        name: "Wrench",
-        price: 500,
-        img: wrenchImg
-      },
-      {
         id: "nails",
         name: "Nails",
         price: 25,
