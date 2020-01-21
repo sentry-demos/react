@@ -36,6 +36,12 @@ class App extends Component {
         name: "Nails",
         price: 25,
         img: nailsImg
+      },
+      {
+        id: "hammer",
+        name: "Hammer",
+        price: 1000,
+        img: hammerImg
       }
     ];
     this.buyItem = this.buyItem.bind(this);
