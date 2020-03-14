@@ -17,7 +17,7 @@ all: build_react setup_release build deploy-react
 build_react:
 	source $(HOME)/.nvm/nvm.sh && nvm use && npm install && npm run build
 
-setup_release: create_release associate_commits
+setup_release: create_release associate_commits upload_sourcemaps
 
 create_release:
 	sentry-cli releases -o $(SENTRY_ORG) new -p $(SENTRY_PROJECT) $(VERSION)
