@@ -7,6 +7,7 @@ import hammerImg from "../assets/hammer.png";
 
 const PORT = process.env.REACT_APP_PORT || 3001;
 const BACKEND = process.env.REACT_APP_BACKEND || `http://localhost:${PORT}`;
+const IS_WORKFLOW_DEMO = process.env.REACT_APP_WORKFLOW || true;
 
 const request = require('request');
 
@@ -110,7 +111,9 @@ class App extends Component {
   }
 
   checkout() {
-    // this.myCodeIsNotPerfect();
+    if (IS_WORKFLOW_DEMO) {
+      this.myCodeIsNotPefect();
+    }
 
     /*
       POST request to /checkout endpoint.
