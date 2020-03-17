@@ -5,7 +5,10 @@ import wrenchImg from "../assets/wrench.png";
 import nailsImg from "../assets/nails.png";
 import hammerImg from "../assets/hammer.png";
 
-const PORT = process.env.REACT_APP_PORT || 3001
+const PORT = process.env.REACT_APP_PORT || 3001;
+const BACKEND = process.env.REACT_APP_BACKEND || `http://localhost:${PORT}`;
+const IS_WORKFLOW_DEMO = process.env.REACT_APP_WORKFLOW !== "false";
+
 const request = require('request');
 
 const monify = n => (n / 100).toFixed(2);
@@ -108,7 +111,9 @@ class App extends Component {
   }
 
   checkout() {
-    this.myCodeIsNotPerfect();
+    if (IS_WORKFLOW_DEMO) {
+      this.myCodeIsNotPerfect();
+    }
 
     /*
       POST request to /checkout endpoint.
@@ -127,7 +132,7 @@ class App extends Component {
     });
     // perform request (set transctionID as header and throw error appropriately)
     request.post({
-        url: `http://localhost:${PORT}/checkout`,
+        url: `${BACKEND}/checkout`,
         json: order,
         headers: {
           "X-Session-ID": this.sessionId,
