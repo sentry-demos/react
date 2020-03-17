@@ -1,0 +1,11 @@
+version: '3'
+services:
+  react:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+     - "3005:1234" # React app will be served on localhost:3005
+    environment:
+     PORT: 1234
