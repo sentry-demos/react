@@ -112,7 +112,7 @@ class App extends Component {
 
   checkout() {
     if (IS_WORKFLOW_DEMO) {
-      this.myCodeIsPerfect();
+      this.myCodeIsNotPerfect();
     }
 
     /*
