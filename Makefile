@@ -12,7 +12,6 @@ GCP_DEPLOY=gcloud run deploy $(shell whoami)
 GCP_SERVICE_NAME=react-errors
 GCP_WORKSPACE_NAME=workspace_react_errors
 
-all: build_react setup_release build deploy-react
 
 build_react:
 	source $(HOME)/.nvm/nvm.sh && nvm use && npm install && npm run build
@@ -29,9 +28,13 @@ upload_sourcemaps:
 	sentry-cli releases -o $(SENTRY_ORG) -p $(SENTRY_PROJECT) files $(VERSION) \
 		upload-sourcemaps --url-prefix "~/$(PREFIX)" --validate build/$(PREFIX)
 
+# GCP
+deploy_to_gcp: build_react setup_release build deploy-react
+
 build:
 	gcloud builds submit --substitutions=COMMIT_SHA=$(COMMIT_SHA) --config=cloudbuild.yaml
 deploy-react:
 	$(GCP_DEPLOY)-$(GCP_SERVICE_NAME) --image $(REPOSITORY)/$(GCP_WORKSPACE_NAME):$(COMMIT_SHA) --platform managed
+# ---
 
 .PHONY: all build_react setup_release create_release associate_commits upload_sourcemaps build deploy-react
