@@ -111,6 +111,12 @@ class App extends Component {
   }
 
   checkout() {
+    Sentry.addBreadcrumb({
+      category: 'cart',
+      message: 'User clicked on Checkout',
+      level: 'info'
+    });
+
     if (IS_WORKFLOW_DEMO) {
       this.myCodeIsNotPerfect();
     }
