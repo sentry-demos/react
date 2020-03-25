@@ -82,7 +82,6 @@ class App extends Component {
   buyItem(item) {
     const cart = [].concat(this.state.cart);
     cart.push(item);
-    console.log(item);
     this.setState({ cart, success: false });
 
     Sentry.configureScope(scope => {
