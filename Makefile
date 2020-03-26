@@ -29,12 +29,12 @@ upload_sourcemaps:
 		upload-sourcemaps --url-prefix "~/$(PREFIX)" --validate build/$(PREFIX)
 
 # GCP
-deploy_to_gcp: build_react setup_release build deploy-react
+deploy_gcp: build_react setup_release build deploy_react
 
 build:
 	gcloud builds submit --substitutions=COMMIT_SHA=$(COMMIT_SHA) --config=cloudbuild.yaml
-deploy-react:
+deploy_react:
 	$(GCP_DEPLOY)-$(GCP_SERVICE_NAME) --image $(REPOSITORY)/$(GCP_WORKSPACE_NAME):$(COMMIT_SHA) --platform managed
 # ---
 
-.PHONY: all build_react setup_release create_release associate_commits upload_sourcemaps build deploy-react
+.PHONY: all build_react setup_release create_release associate_commits upload_sourcemaps build deploy_react

@@ -37,3 +37,7 @@ $ npm run deploy
 ## Tracing
 ![Alt Text](configure-tracing-errors.gif)
 
+## Deploy to Google Cloud Run:
+```
+$ make deploy_to_gcp
+```
