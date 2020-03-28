@@ -29,7 +29,7 @@
     Sentry.init({
       dsn: 'https://f3e1b754a04b4dc1be1b54454ec6d238@sentry.io/1356467',
       release: "%REACT_APP_RELEASE%",
-      environment: "prod",
+      environment: "%REACT_APP_ENVIRONMENT%",
       beforeSend(event) {
         // Check if it is an exception, if so, show the report dialog
         if (event.exception) {

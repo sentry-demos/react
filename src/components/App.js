@@ -67,17 +67,21 @@ class App extends Component {
     // Add context to error/event
     Sentry.configureScope(scope => {
       scope.setUser({ email: this.email }); // attach user/email context
-      scope.setTag("customerType", "medium-plan"); // custom-tag
+      scope.setTag("customerType", this.getPlanName()); // custom-tag
     });
 
     //Will add an XHR Sentry breadcrumb
     this.performXHRRequest();
   }
 
+   getPlanName() {
+     const plans = ["medium-plan", "large-plan", "small-plan", "enterprise"];
+     return plans[Math.floor(Math.random() * plans.length)];
+   }
+
   buyItem(item) {
     const cart = [].concat(this.state.cart);
     cart.push(item);
-    console.log(item);
     this.setState({ cart, success: false });
 
     Sentry.configureScope(scope => {
@@ -111,6 +115,12 @@ class App extends Component {
   }
 
   checkout() {
+    Sentry.addBreadcrumb({
+      category: 'cart',
+      message: 'User clicked on Checkout',
+      level: 'info'
+    });
+
     if (IS_WORKFLOW_DEMO) {
       this.myCodeIsPerfect();
     }
