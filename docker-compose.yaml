@@ -6,6 +6,6 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
-     - "3005:1234" # React app will be served on localhost:3005
+     - "3005:3005" # React app will be served on localhost:3005
     environment:
-     PORT: 1234
+     PORT: 3005
