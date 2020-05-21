@@ -34,6 +34,14 @@ $ npm run deploy
 
 ![Alt Text](configure-launch-react-demo.gif)
 
+## Run With Docker
+
+```
+$ docker-compose up
+```
+1. Go to http://localhost:3005 in your browser and begin throwing errors/events to Sentry!
+
+
 ## Tracing
 ![Alt Text](configure-tracing-errors.gif)
 
