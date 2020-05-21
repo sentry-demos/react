@@ -11,7 +11,7 @@
     "react-router": "^1.0.3",
     "react-scripts": "1.0.10",
     "request": "^2.88.0",
-    "serve": "^10.1.1"
+    "serve": "^10.1.2"
   },
   "scripts": {
     "predeploy": "npm run build && make setup_release",

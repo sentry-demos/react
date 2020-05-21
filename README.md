@@ -1,5 +1,14 @@
 # sentry-demos/react
 
+## Versions Summary:
+
+| dependency      | version           
+| ------------- |:-------------:| 
+| node      | 14.2.0  |
+| sentry-cli   | 1.52.3    |
+| macOS | Catalina 10.15.3      |
+| docker   | 19.03.8     |
+
 ## Goal/Summary:
 Show how Sentry works
 - Import/Integrate
