@@ -1,15 +1,19 @@
 /*global Sentry*/
 import React, { Component } from "react";
+import { connect } from 'react-redux';
+
 import "./App.css";
 import wrenchImg from "../assets/wrench.png";
 import nailsImg from "../assets/nails.png";
 import hammerImg from "../assets/hammer.png";
+import * as actions from '../store/actions/index';
 
 const PORT = process.env.REACT_APP_PORT || 3001;
 const BACKEND = process.env.REACT_APP_BACKEND || `http://localhost:${PORT}`;
 const IS_WORKFLOW_DEMO = process.env.REACT_APP_WORKFLOW !== "false";
 
 const request = require('request');
+
 
 const monify = n => (n / 100).toFixed(2);
 const getUniqueId = () => '_' + Math.random().toString(36).substr(2, 9);
@@ -18,7 +22,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cart: []
+      success: false,
+      hasError: false
     };
 
     // generate random email
@@ -47,9 +52,8 @@ class App extends Component {
         img: hammerImg
       }
     ];
-    this.buyItem = this.buyItem.bind(this);
+
     this.checkout = this.checkout.bind(this);
-    this.resetCart = this.resetCart.bind(this);
 
     // generate unique sessionId and set as Sentry tag
     this.sessionId = getUniqueId();
@@ -79,35 +83,6 @@ class App extends Component {
      return plans[Math.floor(Math.random() * plans.length)];
    }
 
-  buyItem(item) {
-    const cart = [].concat(this.state.cart);
-    cart.push(item);
-    this.setState({ cart, success: false });
-
-    Sentry.configureScope(scope => {
-      scope.setExtra('cart', JSON.stringify(cart));
-    });
-    Sentry.addBreadcrumb({
-      category: 'cart',
-      message: 'User added ' + item.name + ' to cart',
-      level: 'info'
-    });
-  }
-
-  resetCart(event) {
-    event.preventDefault();
-    this.setState({ cart: [], hasError: false, success: false });
-
-    Sentry.configureScope(scope => {
-      scope.setExtra('cart', '');
-    });
-    Sentry.addBreadcrumb({
-      category: 'cart',
-      message: 'User emptied cart',
-      level: 'info'
-    });
-  }
-
   performXHRRequest(){
     fetch('https://jsonplaceholder.typicode.com/todos/1')
       .then(response => response.json())
@@ -132,7 +107,7 @@ class App extends Component {
     */
     const order = {
       email: this.email,
-      cart: this.state.cart
+      cart: this.props.cart
     };
 
     // generate unique transactionId and set as Sentry tag
@@ -163,8 +138,8 @@ class App extends Component {
   }
 
   render() {
-    const total = this.state.cart.reduce((t, i) => t + i.price, 0);
-    const cartDisplay = this.state.cart.reduce((c, { id }) => {
+    const total = this.props.cart.reduce((t, i) => t + i.price, 0);
+    const cartDisplay = this.props.cart.reduce((c, { id }) => {
       c[id] = c[id] ? c[id] + 1 : 1;
       return c;
     }, {});
@@ -187,7 +162,7 @@ class App extends Component {
                   <p>{name}</p>
                   <div className="button-wrapper">
                     <strong>${monify(price)}</strong>
-                    <button onClick={() => this.buyItem(item)}>Buy!</button>
+                    <button onClick={() => this.props.onBuyItem(item)}>Buy!</button>
                   </div>
                 </div>
               );
@@ -199,7 +174,7 @@ class App extends Component {
             <h4>Hi, {this.email}!</h4>
           </header>
           <div className="cart">
-            {this.state.cart.length ? (
+            {this.props.cart.length ? (
               <div>
                 {Object.keys(cartDisplay).map(id => {
                   const { name, price } = this.store.find(i => i.id === id);
@@ -237,12 +212,12 @@ class App extends Component {
           )}
           <button
             onClick={this.checkout}
-            disabled={this.state.cart.length === 0}
+            disabled={this.props.cart.length === 0}
           >
             Checkout
           </button>{" "}
-          {this.state.cart.length > 0 && (
-            <button onClick={this.resetCart} className="cart-reset">
+          {this.props.cart.length > 0 && (
+            <button onClick={this.props.onResetCart} className="cart-reset">
               Empty cart
             </button>
           )}
@@ -252,4 +227,17 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+      cart: state.cart,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+      onBuyItem: (item) => dispatch(actions.buyItem(item)),
+      onResetCart: () => dispatch(actions.resetCart()),
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
