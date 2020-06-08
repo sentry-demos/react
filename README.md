@@ -51,6 +51,8 @@ The difference is controlled by the `REACT_APP_WORKFLOW` variable in `.env`. Thi
 
 `REACT_APP_WORKFLOW=true` causes it to error on this.codeNotPerfect and does not call back-end
 
+P.S. you need to rename `REACT_APP_WORKFLOW` TO `REACT_APP_IS_WORKFLOW_DEMO`
+
 ## Run With Docker
 
 ```
