@@ -51,7 +51,7 @@ The difference is controlled by the `REACT_APP_WORKFLOW` variable in `.env`. Thi
 
 `REACT_APP_WORKFLOW=true` causes it to error on this.codeNotPerfect and does not call back-end
 
-P.S. comments are not supported in .env
+P.S. comments are not supported in .env  
 `REACT_APP_WORKFLOW=false # To enable checkout flow` is evaluated as `false # To enable checkout flow` not `false`
 
 P.S. you need to rename `REACT_APP_WORKFLOW` to `REACT_APP_IS_WORKFLOW_DEMO`
