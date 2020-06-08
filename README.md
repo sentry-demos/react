@@ -43,7 +43,13 @@ $ npm run deploy
 
 ![Alt Text](configure-launch-react-demo.gif)
 
-2. You can run this demo in 2 ways. 1st is to generative a standalone error in Javascript by clicking Checkout. 2nd is to generate errors in both Javascript and Python (Flask) https://github.com/sentry-demos/flask by clicking Checkout. The difference is controlled by the `REACT_APP_WORKFLOW` variable in `.env`. This request can be made to any of the back-end /sentry-demos.
+2. You can run this demo in 2 ways. 1st is to generative a standalone error in Javascript by clicking Checkout. 2nd is to generate errors in both Javascript and Python (Flask) https://github.com/sentry-demos/flask by clicking Checkout.
+
+The difference is controlled by the `REACT_APP_WORKFLOW` variable in `.env`. This request can be made to any of the back-end /sentry-demos.
+
+`REACT_APP_WORKFLOW=false` calls https://neilmanvar-flask-m3uuizd7iq-uc.a.run.app/checkout, see components/app.js as to why this is happening.
+
+`REACT_APP_WORKFLOW=true` causes it to error on this.codeNotPerfect and does not call back-end
 
 ## Run With Docker
 
