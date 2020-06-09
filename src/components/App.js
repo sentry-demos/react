@@ -9,8 +9,11 @@ import hammerImg from "../assets/hammer.png";
 import * as actions from '../store/actions/index';
 
 const PORT = process.env.REACT_APP_PORT || 3001;
+// make deploy_gcp
 const BACKEND = process.env.REACT_APP_BACKEND || `http://localhost:${PORT}`;
-const IS_WORKFLOW_DEMO = process.env.REACT_APP_WORKFLOW !== "false";
+// npm run deploy
+// const BACKEND = `http://localhost:${PORT}`
+const WORKFLOW = process.env.REACT_APP_WORKFLOW !== "false";
 
 const request = require('request');
 
@@ -96,7 +99,7 @@ class App extends Component {
       level: 'info'
     });
 
-    if (IS_WORKFLOW_DEMO) {
+    if (WORKFLOW) {
       this.myCodeIsPerfect();
     }
 
