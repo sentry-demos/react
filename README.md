@@ -51,12 +51,16 @@ The difference is controlled by the `REACT_APP_WORKFLOW` variable in `.env`. Thi
 
 `REACT_APP_WORKFLOW=true` causes it to error on this.codeNotPerfect and does not call back-end
 
+#### Gotcha's
+
 P.S. if you're trying to call Flask running locally on your computer, then go into components/app.js and manually edit the `IS_WORKFLOW_DEMO` variable because it defaults to the gcp url every time.
 
 P.S. comments are not supported in .env  
 `REACT_APP_WORKFLOW=false # To enable checkout flow` is evaluated as `false # To enable checkout flow` not `false`
 
 P.S. you need to rename your .env's `REACT_APP_WORKFLOW` to `REACT_APP_IS_WORKFLOW_DEMO` which is what app.js says.
+
+P.S. the command is `make deploy_gcp` not `make deploy_to_gcp` like the README says.
 
 ## Run With Docker
 
