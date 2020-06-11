@@ -5,7 +5,7 @@
 | dependency      | version           
 | ------------- |:-------------:| 
 | node      | 14.2.0  |
-| sentry-cli   | 1.52.3    |
+| sentry-cli   | 1.53.0    |
 | macOS | Catalina 10.15.3      |
 | docker   | 19.03.8     |
 
