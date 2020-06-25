@@ -12,6 +12,7 @@
     "react-router": "^1.0.3",
     "react-scripts": "^3.4.1",
     "redux": "^4.0.5",
+    "redux-logger": "^3.0.6",
     "request": "^2.88.0",
     "serve": "^10.1.2"
   },
