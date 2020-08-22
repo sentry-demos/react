@@ -2,14 +2,15 @@
 # Following variable must be passed in
 # SENTRY_AUTH_TOKEN
 SENTRY_ORG=testorg-az
-SENTRY_PROJECT=reactadamtf
+SENTRY_PROJECT=frontend-react
 VERSION=`sentry-cli releases propose-version`
 PREFIX=static/js
+SENTRY_CLI=./node_modules/.bin/sentry-cli
 
 REPOSITORY=us.gcr.io/sales-engineering-sf
 COMMIT_SHA=$(shell git rev-parse HEAD)
 GCP_DEPLOY=gcloud run deploy $(shell whoami)
-GCP_SERVICE_NAME=react-errors
+GCP_SERVICE_NAME=react-errors-laravel-edition
 GCP_WORKSPACE_NAME=workspace_react_errors
 
 

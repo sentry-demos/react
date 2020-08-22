@@ -3,13 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@sentry/cli": "^1.37.0",
+    "@sentry/cli": "^1.55.0",
     "history": "^1.17.0",
     "material-ui": "^0.18.7",
-    "react": "^15.6.2",
-    "react-dom": "^15.6.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
     "react-router": "^1.0.3",
-    "react-scripts": "1.0.10",
+    "react-scripts": "^3.4.1",
+    "redux": "^4.0.5",
+    "redux-logger": "^3.0.6",
     "request": "^2.88.0",
     "serve": "^10.1.2"
   },
@@ -23,5 +26,17 @@
   },
   "devDependencies": {
     "gh-pages": "^1.2.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
