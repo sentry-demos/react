@@ -25,6 +25,6 @@ jobs:
       run: sleep 1
 
     - name: Sentry Release
-      uses: getsentry/action-release@v1
+      uses: getsentry/action-release@bffb8e7497965880e4c2d206b74c469f616865c0 # Change the version for testing
       with:
         environment: production
